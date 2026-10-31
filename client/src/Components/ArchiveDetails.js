@@ -28,7 +28,7 @@ const ArchiveDetails = () => {
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/admin/archive/${id}`, {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/admin/archive/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setItem(res.data.archive);
@@ -56,7 +56,7 @@ const ArchiveDetails = () => {
         try {
           // ✅ GAMITIN ANG ADMIN ENDPOINT
           await axios.put(
-            `http://localhost:4000/admin/archive/${itemId}/restore`,
+            `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/admin/archive/${itemId}/restore`,
             {},
             { headers: { Authorization: `Bearer ${token}` } }
           );
@@ -87,7 +87,7 @@ const ArchiveDetails = () => {
         try {
           // ✅ GAMITIN ANG ADMIN ENDPOINT
           await axios.delete(
-            `http://localhost:4000/admin/archive/${itemId}/permanent`,
+            `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/admin/archive/${itemId}/permanent`,
             { headers: { Authorization: `Bearer ${token}` } }
           );
           Swal.fire("Deleted!", "The item has been permanently deleted.", "success");
@@ -159,7 +159,7 @@ const ArchiveDetails = () => {
               <img
                 src={
                   item.img?.[0]
-                    ? `http://localhost:4000/${item.img[0]}`
+                    ? `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.img[0]}`
                     : "https://i.ibb.co/DpZ3qy2/Untitled-design-10.png"
                 }
                 alt={item.name}

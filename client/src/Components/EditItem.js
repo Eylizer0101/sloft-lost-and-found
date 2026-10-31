@@ -52,7 +52,7 @@ export default function EditItem() {
   ];
 
   useEffect(() => {
-    Axios.get(`http://localhost:4000/items/${id}`)
+    Axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items/${id}`)
       .then((res) => {
         const item = res.data.item;
         setFormData({
@@ -95,7 +95,7 @@ export default function EditItem() {
       }
     }
 
-    Axios.put(`http://localhost:4000/items/update/${id}`, data, {
+    Axios.put(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items/update/${id}`, data, {
       headers: {
         token: token,
         "Content-Type": "multipart/form-data",

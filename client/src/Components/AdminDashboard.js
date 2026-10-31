@@ -39,7 +39,7 @@ export default function AdminDashboard() {
 
   const fetchStats = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/admin/stats", {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/admin/stats`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setStats(res.data.stats);
@@ -51,7 +51,7 @@ export default function AdminDashboard() {
   const fetchPendingClaims = async () => {
     try {
       console.log("🔄 Fetching pending claims count...");
-      const res = await axios.get("http://localhost:4000/claims/pending-count", {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/claims/pending-count`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log("📊 Pending claims response:", res.data);
@@ -70,7 +70,7 @@ export default function AdminDashboard() {
   const fetchItems = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:4000/admin/items", {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/admin/items`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setItems(res.data.items);
@@ -132,7 +132,7 @@ export default function AdminDashboard() {
   const updateStatus = async (id, newStatus) => {
     try {
       const res = await axios.put(
-        `http://localhost:4000/admin/items/${id}/status`,
+        `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/admin/items/${id}/status`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -152,7 +152,7 @@ export default function AdminDashboard() {
   const deleteItem = async (id) => {
     if (window.confirm("Delete item?")) {
       try {
-        await axios.delete(`http://localhost:4000/admin/items/${id}`, {
+        await axios.delete(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/admin/items/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         fetchItems();
@@ -168,7 +168,7 @@ export default function AdminDashboard() {
     if (window.confirm("Mark this item as Found?")) {
       try {
         const res = await axios.put(
-          `http://localhost:4000/admin/items/${id}/found`,
+          `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/admin/items/${id}/found`,
           {
             status: "Pending",
             type: "Found",
@@ -373,7 +373,7 @@ export default function AdminDashboard() {
                       <Avatar
                         src={
                           item.img?.[0]
-                            ? `http://localhost:4000/${item.img[0]}`
+                            ? `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.img[0]}`
                             : "https://i.ibb.co/DpZ3qy2/Untitled-design-10.png"
                         }
                         alt={item.name}

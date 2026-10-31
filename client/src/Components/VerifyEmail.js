@@ -33,7 +33,7 @@ const VerifyEmail = () => {
     setLoading(true);
     try {
       // ✅ FIXED: Removed /api from URL to match backend route
-      const res = await axios.post("http://localhost:4000/users/verify-otp", {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/users/verify-otp`, {
         email: email.trim(),
         otp: String(otp).trim(), // ✅ force as string
       });
@@ -70,7 +70,7 @@ const VerifyEmail = () => {
 
     setResendLoading(true);
     try {
-      const res = await axios.post("http://localhost:4000/users/resend-otp", {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/users/resend-otp`, {
         email: email.trim(),
       });
 

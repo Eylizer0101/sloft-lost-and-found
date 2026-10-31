@@ -32,7 +32,7 @@ const Archive = () => {
   useEffect(() => {
     const fetchArchives = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/admin/archive");
+        const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/admin/archive`);
         setArchives(res.data.archives);
         setFiltered(res.data.archives);
       } catch (err) {

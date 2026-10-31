@@ -37,7 +37,7 @@ function AdminClaimNotifications() {
   // ✅ Fetch all claim notifications
   const fetchClaims = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/claims", {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/claims`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
 

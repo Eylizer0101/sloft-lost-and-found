@@ -62,7 +62,7 @@ function NotificationBell() {
     }
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:4000/notifications/${userId}`);
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/notifications/${userId}`);
       const data = res.data || [];
       const normalized = (Array.isArray(data) ? data : []).map((n) => ({
         _id: n._id || n.id || n.notificationId || Math.random().toString(36).slice(2),
@@ -104,7 +104,7 @@ function NotificationBell() {
   const markAsRead = async (id) => {
     try {
       setNotifications((prev) => prev.map((n) => (n._id === id ? { ...n, isRead: true } : n)));
-      await axios.put(`http://localhost:4000/notifications/read/${id}`);
+      await axios.put(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/notifications/read/${id}`);
     } catch (err) {
       console.error("Error marking as read:", err);
     }
@@ -121,7 +121,7 @@ function NotificationBell() {
     setMarkingAll(true);
     try {
       setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
-      await Promise.all(visible.map((n) => axios.put(`http://localhost:4000/notifications/read/${n._id}`)));
+      await Promise.all(visible.map((n) => axios.put(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/notifications/read/${n._id}`)));
     } catch (err) {
       console.error("Error marking all as read:", err);
       await fetchNotifications();

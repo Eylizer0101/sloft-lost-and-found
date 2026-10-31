@@ -93,7 +93,7 @@ export default function MyListings() {
   };
 
   useEffect(() => {
-    Axios.get("http://localhost:4000/items?all=true")
+    Axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items?all=true`)
       .then((response) => {
         const allitems = response.data.items.reverse();
         let items = [];
@@ -155,7 +155,7 @@ export default function MyListings() {
                         item.userId?.img
                           ? item.userId.img.startsWith("http")
                             ? item.userId.img
-                            : `http://localhost:4000/${item.userId.img}`
+                            : `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.userId.img}`
                           : "https://www.softzone.es/app/uploads-softzone.es/2018/04/guest.png"
                       }
                       sx={{
@@ -212,11 +212,11 @@ export default function MyListings() {
                         src={
                           item.img && item.img.length > 0
                             ? Array.isArray(item.img)
-                              ? `http://localhost:4000/${item.img[0]}`
-                              : `http://localhost:4000/${item.img}`
+                              ? `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.img[0]}`
+                              : `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.img}`
                             : item.type === "Found"
-                            ? `http://localhost:4000/${item.foundImg}`
-                            : `http://localhost:4000/${item.lostImg}`
+                            ? `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.foundImg}`
+                            : `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.lostImg}`
                         }
                         alt={item.name}
                         style={{

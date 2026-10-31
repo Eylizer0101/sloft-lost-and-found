@@ -35,12 +35,12 @@ export default function MyListingDetails() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/items/${item_id}`)
+      .get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items/${item_id}`)
       .then((res) => {
         const data = res.data.item;
         const imgs =
           data.img?.map((img) => ({
-            image: `http://localhost:4000/${img}`,
+            image: `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${img}`,
           })) || [];
         setSlidesData(imgs);
         setItem(data);
@@ -54,7 +54,7 @@ export default function MyListingDetails() {
 const handleDelete = () => {
   if (window.confirm("Are you sure you want to archive this item?")) {
     axios
-      .put(`http://localhost:4000/items/archive/${item_id}`) // ✅ BAGONG ENDPOINT
+      .put(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items/archive/${item_id}`) // ✅ BAGONG ENDPOINT
       .then(() => {
         toast.success("Item moved to archive successfully 📁", {
           position: "bottom-right",

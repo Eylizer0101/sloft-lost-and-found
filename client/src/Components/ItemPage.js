@@ -75,11 +75,11 @@ function ItemPage() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/items/${item_id}`)
+      .get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items/${item_id}`)
       .then((res) => {
         const data = res.data.item;
         const imgs = data.img.map((img) => ({
-          image: `http://localhost:4000/${img}`,
+          image: `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${img}`,
         }));
         setSlidesData(imgs);
         setItem(data);
@@ -92,7 +92,7 @@ function ItemPage() {
 
   const delete_item = () => {
     axios
-      .delete(`http://localhost:4000/items/delete/${item_id}`)
+      .delete(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items/delete/${item_id}`)
       .then(() => {
         handleCloseDelete();
         toast.success("Item deleted successfully 🗑️", {
@@ -148,7 +148,7 @@ function ItemPage() {
       if (!newComment.trim()) return;
       try {
         const res = await axios.post(
-          `http://localhost:4000/items/${item_id}/comment`,
+          `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items/${item_id}/comment`,
           { text: newComment },
           { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
         );
@@ -188,7 +188,7 @@ function ItemPage() {
     onClick={async () => {
       try {
         const res = await axios.post(
-          "http://localhost:4000/claims/create",
+          `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/claims/create`,
           { itemId: item._id },
           { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
         );

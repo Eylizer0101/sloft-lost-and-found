@@ -50,7 +50,7 @@ export default function UserManagement() {
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:4000/admin/users", {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/admin/users`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = res.data?.users ?? res.data?.usersList ?? res.data;
@@ -90,7 +90,7 @@ export default function UserManagement() {
 
     setDeletingIds((s) => [...s, id]);
     try {
-      await axios.delete(`http://localhost:4000/admin/users/${id}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/admin/users/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers((prev) => prev.filter((u) => String(u._id) !== String(id)));

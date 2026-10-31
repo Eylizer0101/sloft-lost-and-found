@@ -80,7 +80,7 @@ const AddReport = () => {
     formData.append("number", values.number);
 
     try {
-      await axios.post("http://localhost:4000/items/newItem", formData, {
+      await axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items/newItem`, formData, {
         ...config,
         headers: { "Content-Type": "multipart/form-data", token: usertoken },
       });

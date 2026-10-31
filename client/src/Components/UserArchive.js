@@ -76,7 +76,7 @@ export default function UserArchive() {
   }, []);
 
   const fetchArchivedItems = () => {
-    Axios.get("http://localhost:4000/items/archived")
+    Axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items/archived`)
       .then((response) => {
         setArchivedItems(response.data.items || []);
       })
@@ -87,7 +87,7 @@ export default function UserArchive() {
 
   const handleRetrieve = (itemId) => {
     if (window.confirm("Are you sure you want to retrieve this item?")) {
-      Axios.put(`http://localhost:4000/items/retrieve/${itemId}`)
+      Axios.put(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items/retrieve/${itemId}`)
         .then(() => {
           toast.success("Item retrieved successfully! 🔄", {
             position: "bottom-right",
@@ -104,7 +104,7 @@ export default function UserArchive() {
 
   const handleDeletePermanent = (itemId) => {
     if (window.confirm("Are you sure you want to permanently delete this item? This action cannot be undone.")) {
-      Axios.delete(`http://localhost:4000/items/delete/${itemId}`)
+      Axios.delete(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items/delete/${itemId}`)
         .then(() => {
           toast.success("Item permanently deleted 🗑️", {
             position: "bottom-right",
@@ -210,7 +210,7 @@ export default function UserArchive() {
                         item.userId?.img
                           ? item.userId.img.startsWith("http")
                             ? item.userId.img
-                            : `http://localhost:4000/${item.userId.img}`
+                            : `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.userId.img}`
                           : "https://www.softzone.es/app/uploads-softzone.es/2018/04/guest.png"
                       }
                       sx={{
@@ -258,8 +258,8 @@ export default function UserArchive() {
                         src={
                           item.img && item.img.length > 0
                             ? Array.isArray(item.img)
-                              ? `http://localhost:4000/${item.img[0]}`
-                              : `http://localhost:4000/${item.img}`
+                              ? `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.img[0]}`
+                              : `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.img}`
                             : ""
                         }
                         alt={item.name}

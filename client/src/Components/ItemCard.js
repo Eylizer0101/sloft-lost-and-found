@@ -168,8 +168,8 @@ export default function ItemCard({ item }) {
                 component="img"
                 src={
                   Array.isArray(item.img)
-                    ? `http://localhost:4000/${item.img[0]}`
-                    : `http://localhost:4000/${item.img}`
+                    ? `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.img[0]}`
+                    : `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.img}`
                 }
                 alt={item.name || item.itemName || "Item"}
                 sx={{

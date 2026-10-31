@@ -72,7 +72,7 @@ function Profile() {
 
   const fetchUserProfile = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:4000/users/${id}`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/users/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -128,7 +128,7 @@ function Profile() {
 
     try {
       const response = await axios.put(
-        `http://localhost:4000/users/update/${user._id}`,
+        `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/users/update/${user._id}`,
         form,
         {
           headers: {

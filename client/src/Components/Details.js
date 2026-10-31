@@ -44,11 +44,11 @@ const Details = () => {
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        const res = await axios.get(`http://localhost:4000/items/${id}`);
+        const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items/${id}`);
         setItem(res.data.item);
         setStatus(res.data.item?.status || "");
 
-        const allRes = await axios.get("http://localhost:4000/items?all=true");
+        const allRes = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items?all=true`);
         const allItems = allRes.data.items || [];
         const index = allItems.findIndex((x) => x._id === res.data.item._id);
         if (index !== -1) setReportNumber(index + 1);
@@ -64,7 +64,7 @@ const Details = () => {
   const updateStatus = async (itemId, newStatus) => {
     try {
       await axios.put(
-        `http://localhost:4000/items/update/${itemId}`,
+        `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items/update/${itemId}`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -88,7 +88,7 @@ const Details = () => {
   const markAsFound = async (itemId) => {
     try {
       const res = await axios.put(
-        `http://localhost:4000/admin/items/${itemId}/found`,
+        `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/admin/items/${itemId}/found`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -129,7 +129,7 @@ const Details = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`http://localhost:4000/admin/items/${itemId}`, {
+          await axios.delete(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/admin/items/${itemId}`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           Swal.fire("Deleted!", "Item has been deleted.", "success");
@@ -366,7 +366,7 @@ const Details = () => {
             <img
               src={
                 item.img?.[0]
-                  ? `http://localhost:4000/${item.img[0]}`
+                  ? `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.img[0]}`
                   : "https://i.ibb.co/DpZ3qy2/Untitled-design-10.png"
               }
               alt={item.name}
@@ -387,7 +387,7 @@ const Details = () => {
             <img
               src={
                 item.img?.[0]
-                  ? `http://localhost:4000/${item.img[0]}`
+                  ? `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.img[0]}`
                   : "https://i.ibb.co/DpZ3qy2/Untitled-design-10.png"
               }
               alt="Full Size"

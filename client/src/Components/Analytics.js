@@ -215,7 +215,7 @@ const Analytics = () => {
       const token = localStorage.getItem("token");
       const { startDate, endDate } = buildDateParams();
       
-      let url = "http://localhost:4000/admin/analytics";
+      let url = `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/admin/analytics`;
       if (startDate && endDate) {
         url += `?startDate=${startDate}&endDate=${endDate}`;
       }
@@ -250,7 +250,7 @@ const Analytics = () => {
       const token = localStorage.getItem("token");
       const { startDate, endDate } = buildDateParams();
       
-      let url = "http://localhost:4000/claims/pending-count";
+      let url = `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/claims/pending-count`;
       if (startDate && endDate) {
         url += `?startDate=${startDate}&endDate=${endDate}`;
       }

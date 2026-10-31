@@ -84,7 +84,7 @@ const Home = () => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/items");
+        const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items`);
         if (res.data?.items) {
           setItems(res.data.items);
         } else if (Array.isArray(res.data)) {
@@ -114,7 +114,7 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:4000/contact/send", {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/contact/send`, {
         name,
         email,
         message,

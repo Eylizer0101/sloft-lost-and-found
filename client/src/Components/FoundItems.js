@@ -64,7 +64,7 @@ export default function FoundItems() {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/items");
+        const response = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items`);
         const allItems = Array.isArray(response.data)
           ? response.data
           : response.data.items;
@@ -190,7 +190,7 @@ export default function FoundItems() {
     setSelectedItem(item);
     setOpenCommentModal(true);
     try {
-      const res = await axios.get(`http://localhost:4000/items/${item._id}`);
+      const res = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items/${item._id}`);
       setComments(res.data.item?.comments || []);
     } catch (err) {
       console.error("Error fetching comments:", err);
@@ -202,7 +202,7 @@ export default function FoundItems() {
 
     try {
       const res = await axios.post(
-        `http://localhost:4000/items/${selectedItem._id}/comment`,
+        `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items/${selectedItem._id}/comment`,
         { text: newComment },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -320,8 +320,8 @@ export default function FoundItems() {
               <img
                 src={
                   Array.isArray(item.img)
-                    ? `http://localhost:4000/${item.img[0]}`
-                    : `http://localhost:4000/${item.img}`
+                    ? `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.img[0]}`
+                    : `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.img}`
                 }
                 alt={item.name}
                 style={{

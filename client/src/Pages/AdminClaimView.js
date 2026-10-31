@@ -43,7 +43,7 @@ function AdminClaimView() {
     try {
       // Step 1: Update the item status to "Claimed" (this should trigger archive)
       const res = await axios.put(
-        `http://localhost:4000/admin/items/${claim.itemId._id}/status`,
+        `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/admin/items/${claim.itemId._id}/status`,
         { status: "Claimed" },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );
@@ -54,7 +54,7 @@ function AdminClaimView() {
         // Step 2: Update the claim notification status to "Claimed"
         try {
           await axios.put(
-            `http://localhost:4000/claims/${claim._id}/status`,
+            `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/claims/${claim._id}/status`,
             { status: "Claimed" },
             { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
           );
@@ -87,7 +87,7 @@ function AdminClaimView() {
 
     try {
       const res = await axios.post(
-        `http://localhost:4000/items/sendComment/${claim.itemId._id}`,
+        `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items/sendComment/${claim.itemId._id}`,
         { comment: commentText },
         { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
       );

@@ -41,7 +41,7 @@ const Reports = () => {
   const fetchReports = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:4000/items?all=true");
+      const response = await axios.get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items?all=true`);
       setItems(response.data.items || []);
       setFilteredItems(response.data.items || []);
     } catch (error) {
@@ -322,7 +322,7 @@ const Reports = () => {
                         <Avatar
                           src={
                             item.img?.[0]
-                              ? `http://localhost:4000/${item.img[0]}`
+                              ? `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.img[0]}`
                               : "https://i.ibb.co/DpZ3qy2/Untitled-design-10.png"
                           }
                           alt={item.name}
