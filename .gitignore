@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Build files
+client/build/
+client/dist/
+
+# Logs
+*.log
+
+# Local uploads
+server/uploads/
