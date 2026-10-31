@@ -1,18 +1,12 @@
-// server/utils/sendEmailNotification.js
-import nodemailer from 'nodemailer';
+
+import SibApiV3Sdk from 'sib-api-v3-sdk';
 import dotenv from 'dotenv';
 dotenv.config();
 
-// Create transporter - ✅ FIXED: createTransport (not createTransporter)
-const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-  port: process.env.EMAIL_PORT || 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER || 'eylizermarcosdeafria@gmail.com',
-    pass: process.env.EMAIL_PASS || 'hmelgtxahjraoybs',
-  },
-});
+// Send through Brevo HTTPS API (compatible with Render Free)
+const brevoClient = SibApiV3Sdk.ApiClient.instance;
+brevoClient.authentications['api-key'].apiKey = process.env.BREVO_API_KEY;
+const transEmailApi = new SibApiV3Sdk.TransactionalEmailsApi();
 
 const sendEmailNotification = async ({ to, subject, item, user }) => {
   try {
@@ -95,16 +89,18 @@ const sendEmailNotification = async ({ to, subject, item, user }) => {
       Timestamp: ${new Date().toLocaleString()}
     `;
 
-    // Send email
+    // Send email using Brevo HTTPS API
     const mailOptions = {
-      from: `"SLoft Lost & Found" <${process.env.EMAIL_USER || 'eylizermarcosdeafria@gmail.com'}>`,
-      to: to,
+      sender: {
+        name: process.env.BREVO_FROM_NAME || 'SLoft Lost & Found',
+        email: process.env.BREVO_FROM_EMAIL,
+      },
+      to: [{ email: to }],
       subject: subject,
-      text: textContent,
-      html: emailContent,
+      htmlContent: emailContent,
     };
 
-    const result = await transporter.sendMail(mailOptions);
+    const result = await transEmailApi.sendTransacEmail(mailOptions);
     console.log('✅ Email sent successfully:', result.messageId);
     return result;
     
