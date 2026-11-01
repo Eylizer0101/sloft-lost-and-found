@@ -141,7 +141,7 @@ const Home = () => {
         sx={{
           position: "relative",
           width: "100%",
-          minHeight: { xs: "auto", sm: "auto", md: "540px" },
+          minHeight: { xs: "370px", sm: "420px", md: "540px" },
           display: "flex", flexDirection: "column", justifyContent: "center",
           overflow: "hidden",
           background: "linear-gradient(180deg, #D7FEC8 0%, #ffffffff 100%)",
@@ -153,24 +153,24 @@ const Home = () => {
           justifyContent="center"
           height="100%"
           textAlign="center"
-          sx={{ color: colors.text, position: "relative", zIndex: 2, px: { xs: 2.5, sm: 3 }, py: { xs: 4, sm: 5, md: 5 }, width: "100%" }}
+          sx={{ color: colors.text, position: "relative", zIndex: 2, px: { xs: 2, sm: 3 }, py: { xs: 3, sm: 4, md: 5 }, width: "100%", minHeight: "inherit", mx: "auto" }}
         >
           <motion.div style={{ width: "100%", maxWidth: "1100px", margin: "0 auto" }} variants={fadeInUp} initial="hidden" whileInView="visible">
             <Typography
               variant="h2"
               fontWeight="bold"
-              sx={{ letterSpacing: { xs: 0, md: 1 }, mb: { xs: 2, md: 1 }, color: colors.primary, fontSize: { xs: "clamp(2rem, 9vw, 3.25rem)", sm: "3.5rem", md: "4rem" }, lineHeight: 1.12, overflowWrap: "normal" }}
+              sx={{ letterSpacing: { xs: 0, md: 1 }, mb: { xs: 2, md: 1 }, color: colors.primary, fontSize: { xs: "clamp(1.75rem, 7.5vw, 2.65rem)", sm: "3.5rem", md: "4rem" }, lineHeight: 1.12, overflowWrap: "normal" }}
             >
               ARAULLO SOUTH CAMPUS
             </Typography>
             <Typography
               variant="h4"
               fontWeight="bold"
-              sx={{ mb: 2, color: colors.dark, fontSize: { xs: "clamp(1.25rem, 5vw, 1.75rem)", md: "2.125rem" }, lineHeight: 1.3 }}
+              sx={{ mb: { xs: 1.5, md: 2 }, color: colors.dark, fontSize: { xs: "clamp(1.1rem, 4.2vw, 1.5rem)", md: "2.125rem" }, lineHeight: 1.3 }}
             >
               Lost And Found Tracking System
             </Typography>
-            <Typography variant="body1" sx={{ maxWidth: 600, mx: "auto", mb: 4, px: 1, fontSize: { xs: "0.95rem", sm: "1rem" } }}>
+            <Typography variant="body1" sx={{ maxWidth: 600, mx: "auto", mb: { xs: 2.5, md: 4 }, px: 1, fontSize: { xs: "0.9rem", sm: "1rem" }, lineHeight: 1.5 }}>
               Easily report and retrieve lost items with our system
             </Typography>
           </motion.div>
@@ -255,19 +255,20 @@ const Home = () => {
       {/* HOW IT WORKS */}
       <Stack
         alignItems="center"
-        mt={10}
-        px={3}
+        mt={{ xs: 0, md: 10 }}
+        px={{ xs: 2.5, md: 3 }}
         width="100%"
         sx={{
           backgroundColor: "#FFFFFF",
-          py: 8,
+          py: { xs: 4, sm: 5, md: 8 },
+          textAlign: "center",
         }}
       >
         <Typography variant="h5" fontWeight="bold" color="#064C3B" mb={1}>
           How It Works
         </Typography>
 
-        <Typography color="text.secondary" textAlign="center" mb={5}>
+        <Typography color="text.secondary" textAlign="center" mb={{ xs: 3, md: 5 }}>
           Our system makes it easy to report and find lost items
         </Typography>
 
