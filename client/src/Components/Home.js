@@ -176,7 +176,26 @@ const Home = () => {
           </motion.div>
 
           {/* Buttons */}
-          <Stack direction={{ xs: "column", sm: "row" }} gap={1.5} justifyContent="center" alignItems="center" sx={{ width: "100%", maxWidth: 630, mx: "auto", "& .MuiButton-root": { width: { xs: "100%", sm: "auto" }, minWidth: { sm: 160 }, minHeight: 46, mx: "0 !important", mt: "0 !important" } }}> 
+          <Box sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "repeat(2, minmax(0, 1fr))", sm: "repeat(3, minmax(0, 1fr))" },
+            gap: { xs: 1.25, sm: 1.5 },
+            width: "100%",
+            maxWidth: { xs: 360, sm: 560 },
+            mx: "auto",
+            px: { xs: 1, sm: 0 },
+            "& .MuiButton-root": {
+              width: "100%",
+              minWidth: 0,
+              minHeight: { xs: 44, sm: 46 },
+              fontSize: { xs: "0.85rem", sm: "0.95rem" },
+              px: { xs: 1, sm: 2 },
+              py: { xs: 1, sm: 1.25 },
+              mx: "0 !important",
+              mt: "0 !important",
+              whiteSpace: "nowrap",
+            },
+          }}> 
             <Button
               variant="contained"
               onClick={handleButtonClick}
@@ -214,6 +233,9 @@ const Home = () => {
               variant="outlined"
               onClick={handleButtonClickFound}
               sx={{
+                gridColumn: { xs: "1 / -1", sm: "auto" },
+                justifySelf: "center",
+                maxWidth: { xs: "calc((100% - 10px) / 2)", sm: "none" },
                 borderColor: colors.primary,
                 color: colors.primary,
                 fontWeight: "bold",
@@ -226,7 +248,7 @@ const Home = () => {
             >
               Found Item
             </Button>
-          </Stack>
+          </Box>
         </Stack>
       </Box>
 
