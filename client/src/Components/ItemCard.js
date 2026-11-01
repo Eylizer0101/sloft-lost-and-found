@@ -84,7 +84,8 @@ export default function ItemCard({ item }) {
     >
       <Card
         sx={{
-          width: "340px",
+          width: "100%",
+          maxWidth: "340px",
           height: "460px",
           borderRadius: "18px",
           backgroundColor: "#ffffff",

@@ -196,7 +196,7 @@ const Reports = () => {
               placeholder="Search by name, description, category, or location..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              sx={{ minWidth: 600 }}
+              sx={{ width: { xs: "100%", sm: "auto" }, minWidth: { xs: 0, md: 260 }, flex: 1 }}
             />
 
             {/* Type Filter */}

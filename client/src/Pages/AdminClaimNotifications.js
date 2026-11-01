@@ -188,7 +188,7 @@ function AdminClaimNotifications() {
             placeholder="Search by name, student ID, item, or course..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            sx={{ minWidth: 750 }}
+            sx={{ width: { xs: "100%", sm: "auto" }, minWidth: { xs: 0, md: 260 }, flex: 1 }}
           />
 
           

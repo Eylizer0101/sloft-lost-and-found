@@ -1,6 +1,8 @@
 import React, { useState } from 'react';   
 import { setConstraint } from "../constraints";
-import { Button, Stack, Typography, Modal, Box, Paper, Grid } from '@mui/material';
+import { Button, Stack, Typography, Modal, Box, Paper, Grid, Drawer, IconButton, Divider } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
@@ -15,6 +17,7 @@ function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const [agreementOpen, setAgreementOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const signout = () => {
     setConstraint(false);
@@ -44,6 +47,22 @@ function Navbar() {
   };
 
   const isActive = (path) => location.pathname === path;
+  const mobileNavigate = (path) => { setMobileOpen(false); navigate(path); };
+  const mobileLinks = token
+    ? [
+        { label: "Lost Item", action: () => mobileNavigate("/lostitems") },
+        { label: "Found Item", action: () => mobileNavigate("/founditems") },
+        { label: "Report Item", action: () => { setMobileOpen(false); setAgreementOpen(true); } },
+        { label: "My Posted Item", action: () => mobileNavigate("/mylistings") },
+        { label: "Profile", action: () => mobileNavigate("/profile") },
+      ]
+    : [
+        { label: "Home", action: () => mobileNavigate("/") },
+        { label: "About", action: () => { setMobileOpen(false); scrollToSection("about"); } },
+        { label: "Contact", action: () => { setMobileOpen(false); scrollToSection("contact"); } },
+        { label: "Log in", action: () => mobileNavigate("/log-in") },
+        { label: "Register", action: () => mobileNavigate("/sign-up") },
+      ];
 
   const requireLoginToast = () => {
     toast.error("You need to login or sign up first to view items!", {
@@ -90,8 +109,8 @@ function Navbar() {
         direction="row"
         justifyContent="space-between"
         alignItems="center"
-        px={{ xs: 3, sm: 5, md: 8 }}
-        py="20px"
+        px={{ xs: 2, sm: 3, md: 5, lg: 8 }}
+        py={{ xs: 1.5, md: 2.5 }}
         zIndex={20}
         sx={{
           backgroundColor: "#FFFFFF",
@@ -114,7 +133,7 @@ function Navbar() {
         </Typography>
 
         {/* ✅ Navigation Menu */}
-        <Stack direction="row" gap="36px" display={{ xs: 'none', md: 'flex' }} alignItems="center">
+        <Stack direction="row" gap="36px" display={{ xs: 'none', lg: 'flex' }} alignItems="center">
           {token ? (
             <Stack direction="row" gap="32px" alignItems="center">
               {/* 🔹 Removed Home when logged in */}
@@ -239,18 +258,18 @@ function Navbar() {
         </Stack>
 
         {/* ✅ Notification Bell + Auth Buttons */}
-        <Stack direction="row" alignItems="center" gap={3}>
+        <Stack direction="row" alignItems="center" gap={{ xs: 1.5, md: 3 }}>
           {token && (
             <Stack
               sx={{
                 backgroundColor: '#0A7A5A',
                 borderRadius: '50%',
-                width: '3px',
-                height: '3px',
+                width: 36,
+                height: 36,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                mr: 4,
+                mr: { xs: 1, md: 2 },
                 boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
               }}
             >
@@ -263,6 +282,7 @@ function Navbar() {
               variant="outlined"
               onClick={signout}
               sx={{
+                display: { xs: "none", lg: "inline-flex" },
                 textTransform: 'none',
                 px: '20px',
                 py: '7px',
@@ -284,7 +304,7 @@ function Navbar() {
             <Stack
               direction="row"
               gap="10px"
-              display={{ xs: 'none', md: 'flex' }}
+              display={{ xs: 'none', lg: 'flex' }}
               sx={{ pr: "60px" }}
             >
               <Button
@@ -329,8 +349,38 @@ function Navbar() {
               </Button>
             </Stack>
           )}
+          <IconButton
+            aria-label="Open navigation menu"
+            aria-controls="sloft-mobile-navigation"
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen(true)}
+            sx={{ display: { xs: "inline-flex", lg: "none" }, color: "#0A7A5A", minWidth: 44, minHeight: 44 }}
+          >
+            <MenuIcon />
+          </IconButton>
         </Stack>
       </Stack>
+      <Drawer
+        anchor="right"
+        open={mobileOpen}
+        onClose={() => setMobileOpen(false)}
+        ModalProps={{ keepMounted: true }}
+        PaperProps={{ id: "sloft-mobile-navigation", sx: { width: "min(85vw, 320px)", p: 2, backgroundColor: "#FFFFFF" } }}
+      >
+        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ py: 1 }}>
+          <Typography fontWeight={700} sx={{ color: "#0A7A5A", fontSize: 22 }}>S-LOFT</Typography>
+          <IconButton aria-label="Close navigation menu" onClick={() => setMobileOpen(false)}><CloseIcon /></IconButton>
+        </Stack>
+        <Divider sx={{ mb: 2 }} />
+        <Stack component="nav" spacing={0.5} aria-label="Mobile navigation">
+          {mobileLinks.map((item) => (
+            <Button key={item.label} onClick={item.action} fullWidth sx={{ justifyContent: "flex-start", minHeight: 48, px: 2, color: "#0A7A5A", fontWeight: 600, textTransform: "none" }}>
+              {item.label}
+            </Button>
+          ))}
+          {token && <Button onClick={() => { setMobileOpen(false); signout(); }} fullWidth variant="outlined" sx={{ mt: 2, minHeight: 44, color: "#0A7A5A", borderColor: "#0A7A5A" }}>Logout</Button>}
+        </Stack>
+      </Drawer>
 
       {/* 🔹 User Agreement Modal */}
       <Modal

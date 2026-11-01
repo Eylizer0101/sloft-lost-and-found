@@ -132,7 +132,7 @@ export default function EditItem() {
       alignItems="center"
       justifyContent="center"
       minHeight="100vh"
-      px={3}
+      px={{ xs: 1.5, sm: 3 }}
       sx={{
         background: "linear-gradient(180deg, #D7FEC8 0%, #F9FFF5 100%)",
       }}
@@ -143,7 +143,7 @@ export default function EditItem() {
           maxWidth: 850,
           backgroundColor: "#FFFFFF",
           borderRadius: "20px",
-          p: 5,
+          p: { xs: 2, sm: 3, md: 5 },
           boxShadow: "0px 5px 20px rgba(0,0,0,0.05)",
         }}
       >

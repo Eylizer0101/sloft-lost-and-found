@@ -25,13 +25,13 @@ function Layout(props) {
       spacing="0"
       width="100%"
       alignItems="center"
-      height="100vh"
+      minHeight="100dvh"
       justifyContent="space-between"
     >
       <Navbar />
       
       {/* Main content area - para hindi mawala spacing ng Stack */}
-      <Stack flexGrow={1} width="100%">
+      <Stack flexGrow={1} width="100%" minWidth={0}>
         {props.children}
         <Outlet />
       </Stack>

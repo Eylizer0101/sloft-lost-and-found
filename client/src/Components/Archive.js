@@ -129,7 +129,7 @@ const Archive = () => {
             placeholder="Search by name, location, or category..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            sx={{ minWidth: 580 }}
+            sx={{ width: { xs: "100%", sm: "auto" }, minWidth: { xs: 0, md: 260 }, flex: 1 }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

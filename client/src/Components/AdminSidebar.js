@@ -43,7 +43,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 const drawerWidthExpanded = 240;
 const drawerWidthCollapsed = 72;
 
-function AdminSidebar() {
+function AdminSidebar({ mobile = false, onClose = () => {} }) {
   const [collapsed, setCollapsed] = useState(false);
   const [openSubMenu, setOpenSubMenu] = useState(false);
   const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
@@ -96,6 +96,7 @@ function AdminSidebar() {
         sx={{ display: "block" }}
         component={Link}
         to={item.path}
+        onClick={mobile ? onClose : undefined}
       >
         <Tooltip title={collapsed ? item.text : ""} placement="right">
           <ListItemButton
@@ -139,20 +140,20 @@ function AdminSidebar() {
     <Box
       component="nav"
       sx={{
-        width: collapsed ? drawerWidthCollapsed : drawerWidthExpanded,
+        width: mobile ? "100%" : (collapsed ? drawerWidthCollapsed : drawerWidthExpanded),
         flexShrink: 0,
-        position: "fixed",
+        position: mobile ? "relative" : "sticky",
         top: 0,
         left: 0,
-        height: "100vh",
-        zIndex: 1200,
+        height: "100dvh",
+        zIndex: mobile ? "auto" : 1200,
         transition: "width 0.3s ease",
       }}
     >
       <Box
         sx={{
-          width: collapsed ? drawerWidthCollapsed : drawerWidthExpanded,
-          height: "100vh",
+          width: mobile ? "100%" : (collapsed ? drawerWidthCollapsed : drawerWidthExpanded),
+          height: "100dvh",
           backgroundColor: "#FFFFFF",
           color: "#0B996E",
           display: "flex",
@@ -175,10 +176,11 @@ function AdminSidebar() {
         >
           {!collapsed && <Typography variant="h6" fontWeight="bold" noWrap sx={{ color: "#0f8864ff" }}>Admin Panel</Typography>}
           <IconButton
-            onClick={toggleCollapse}
+            aria-label={mobile ? "Close sidebar" : (collapsed ? "Expand sidebar" : "Collapse sidebar")}
+            onClick={mobile ? onClose : toggleCollapse}
             sx={{ color: "#0B996E", transition: "0.3s", "&:hover": { bgcolor: "rgba(11,153,110,0.1)" } }}
           >
-           
+            {mobile ? <ChevronLeftIcon /> : (collapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />)}
           </IconButton>
         </Box>
 

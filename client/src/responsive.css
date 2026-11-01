@@ -1,0 +1,24 @@
+/* SLOFT responsive foundation. Existing theme and page functionality are preserved. */
+html { -webkit-text-size-adjust: 100%; }
+*, *::before, *::after { box-sizing: border-box; }
+body, #root { min-width: 0; width: 100%; }
+img, video { max-width: 100%; height: auto; }
+.MuiStack-root, .MuiBox-root, .MuiGrid-item { min-width: 0; }
+.MuiDialog-paper { max-width: calc(100vw - 32px); max-height: calc(100dvh - 32px); }
+.MuiDialogContent-root { overflow-wrap: anywhere; }
+.MuiTableContainer-root { width: 100%; max-width: 100%; overflow-x: auto !important; }
+.MuiTable-root { width: max-content; min-width: 100%; }
+.MuiTablePagination-toolbar { flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+.MuiTablePagination-spacer { display: none; }
+.MuiCard-root, .MuiPaper-root { max-width: 100%; }
+.MuiTypography-root { overflow-wrap: break-word; }
+@media (max-width: 767.98px) {
+  .MuiDialog-paper { margin: 16px; width: calc(100% - 32px); }
+  .MuiTablePagination-toolbar { padding: 8px; justify-content: center; }
+  .MuiTablePagination-selectLabel, .MuiTablePagination-displayedRows { margin: 0; }
+  .MuiSnackbar-root { max-width: calc(100vw - 24px); }
+  .MuiButton-root { overflow-wrap: anywhere; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
