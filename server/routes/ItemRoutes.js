@@ -18,10 +18,28 @@ const router = express.Router();
 router.get('/archived', getArchivedItems); // ✅ ILAGAY MO ITO BAGO ANG :id ROUTE
 
 
-router.post('/newItem', validateJWT, upload.array("images", 5), createItem);
+// Return a helpful error for invalid images, file-size limits, or storage problems.
+const uploadImages = (req, res, next) => {
+  upload.array("images", 5)(req, res, (error) => {
+    if (!error) return next();
+    console.error("Image upload failed:", error);
+    const isClientError = error.name === 'MulterError' ||
+      error.message === "Only image files are allowed.";
+    return res.status(isClientError ? 400 : 500).json({
+      ok: false,
+      msg: error.code === "LIMIT_FILE_SIZE"
+        ? "Image is too large. Maximum 10 MB per image."
+        : error.code === "LIMIT_UNEXPECTED_FILE"
+          ? "Too many images or invalid image field. Maximum 5 images."
+          : isClientError ? error.message : "Unable to save image on the server.",
+    });
+  });
+};
+
+router.post('/newItem', validateJWT, uploadImages, createItem);
 router.get('/:id', getItemById);
 router.get('/', getAllItems);
-router.put('/update/:id', validateJWT, upload.array("images", 5), updateItem);
+router.put('/update/:id', validateJWT, uploadImages, updateItem);
 router.delete('/delete/:id', deleteItem);
 
 // ✅ DAGDAGAN MO NG MGA ROUTES

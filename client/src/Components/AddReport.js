@@ -66,8 +66,6 @@ const AddReport = () => {
       for (let i = 0; i < image.length; i++) {
         formData.append("images", image[i]);
       }
-    } else {
-      formData.append("images", "");
     }
 
     formData.append("name", values.name);
@@ -92,7 +90,7 @@ const AddReport = () => {
       window.location.href = "/admin/reports";
     } catch (error) {
       console.error("An error occurred:", error);
-      toast.error("Oops 🙁! Something went wrong.", { position: "bottom-right" });
+      toast.error(error.response?.data?.msg || "Oops 🙁! Something went wrong.", { position: "bottom-right" });
       setLoading(false);
     }
   };
