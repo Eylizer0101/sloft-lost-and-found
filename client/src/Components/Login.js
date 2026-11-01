@@ -85,7 +85,7 @@ function Login() {
       console.error("Error:", error);
       setLoading(false);
       
-      toast.error(error.response?.data?.msg || 'Oops 🙁! Server error occurred.', {
+      toast.error(error.response?.data?.msg || (error.request ? 'Cannot connect to the server. Please check the backend CORS settings and API URL.' : 'Oops 🙁! Server error occurred.'), {
         position: "bottom-right",
         autoClose: 3000,
       });

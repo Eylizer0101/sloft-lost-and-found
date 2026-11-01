@@ -70,8 +70,8 @@ function Signup() {
         });
       }
     } catch (error) {
-      console.log("Error occurred:", error);
-      toast.error("Signup failed. Try again!", {
+      console.error("Signup error:", error);
+      toast.error(error.response?.data?.msg || (error.request ? "Cannot connect to the server. Please check the backend CORS settings and API URL." : "Signup failed. Try again!"), {
         position: "bottom-right",
         autoClose: 1000,
         theme: "light",

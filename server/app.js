@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
-import cors from 'cors'
+import { configureCors } from './middlewares/configureCors.js'
 import dotenv from 'dotenv'
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -28,17 +28,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 app.use(express.json())
 
-// ✅ Allow local frontend and deployed frontend
-const allowedOrigins = [
-  'http://localhost:3000',
-  'http://127.0.0.1:3000',
-  process.env.FRONTEND_URL
-].filter(Boolean)
-
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true
-}))
+// ✅ Allow local frontend and deployed S-LOFT frontend
+app.use(configureCors)
 
 app.use(morgan('dev'))
 app.use(bodyParser.urlencoded({ extended: true }))
