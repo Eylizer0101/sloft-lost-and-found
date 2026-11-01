@@ -140,17 +140,17 @@ function Signup() {
 
   return (
     <Stack
-     justifyContent="center"
+     justifyContent={{ xs: "flex-start", md: "center" }}
   alignItems="center"
   width="100%"
-  minHeight="100dvh"
   gap="20px"
   sx={{
     background: "linear-gradient(180deg, #D7FEC8 0%, #ffffffff 100%)",
-    minHeight: "calc(100dvh - 72px)",
+    minHeight: { xs: "auto", md: "calc(100dvh - 72px)" },
     overflowX: "hidden",
     position: "relative",
-    py: { xs: 4, sm: 6, md: 8 },
+    pt: { xs: 3, sm: 4, md: 8 },
+    pb: { xs: 5, sm: 6, md: 8 },
     px: { xs: 2, sm: 3 },
   }}
     >
@@ -161,8 +161,8 @@ function Signup() {
         direction={{ xs: "column", md: "row" }}
         width="100%"
         maxWidth="1200px"
-        px={3}
-        spacing={5}
+        px={{ xs: 0, sm: 2, md: 3 }}
+        spacing={{ xs: 2, md: 5 }}
       >
         {/* ✅ Illustration Section */}
              <Stack

@@ -141,7 +141,7 @@ const Home = () => {
         sx={{
           position: "relative",
           width: "100%",
-          minHeight: { xs: "min(620px, 85dvh)", sm: "620px", md: "700px" },
+          minHeight: { xs: "auto", sm: "auto", md: "540px" },
           display: "flex", flexDirection: "column", justifyContent: "center",
           overflow: "hidden",
           background: "linear-gradient(180deg, #D7FEC8 0%, #ffffffff 100%)",
@@ -153,7 +153,7 @@ const Home = () => {
           justifyContent="center"
           height="100%"
           textAlign="center"
-          sx={{ color: colors.text, position: "relative", zIndex: 2, px: { xs: 2.5, sm: 3 }, py: { xs: 7, md: 5 }, width: "100%" }}
+          sx={{ color: colors.text, position: "relative", zIndex: 2, px: { xs: 2.5, sm: 3 }, py: { xs: 4, sm: 5, md: 5 }, width: "100%" }}
         >
           <motion.div style={{ width: "100%", maxWidth: "1100px", margin: "0 auto" }} variants={fadeInUp} initial="hidden" whileInView="visible">
             <Typography
