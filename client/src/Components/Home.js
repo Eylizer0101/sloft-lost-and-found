@@ -141,7 +141,8 @@ const Home = () => {
         sx={{
           position: "relative",
           width: "100%",
-          minHeight: { xs: "600px", md: "700px" },
+          minHeight: { xs: "min(620px, 85dvh)", sm: "620px", md: "700px" },
+          display: "flex", flexDirection: "column", justifyContent: "center",
           overflow: "hidden",
           background: "linear-gradient(180deg, #D7FEC8 0%, #ffffffff 100%)",
         }}
@@ -152,30 +153,30 @@ const Home = () => {
           justifyContent="center"
           height="100%"
           textAlign="center"
-          sx={{ color: colors.text, position: "relative", zIndex: 2, px: 3 }}
+          sx={{ color: colors.text, position: "relative", zIndex: 2, px: { xs: 2.5, sm: 3 }, py: { xs: 7, md: 5 }, width: "100%" }}
         >
-          <motion.div variants={fadeInUp} initial="hidden" whileInView="visible">
+          <motion.div style={{ width: "100%", maxWidth: "1100px", margin: "0 auto" }} variants={fadeInUp} initial="hidden" whileInView="visible">
             <Typography
               variant="h2"
               fontWeight="bold"
-              sx={{ letterSpacing: 1, mb: 1, color: colors.primary }}
+              sx={{ letterSpacing: { xs: 0, md: 1 }, mb: { xs: 2, md: 1 }, color: colors.primary, fontSize: { xs: "clamp(2rem, 9vw, 3.25rem)", sm: "3.5rem", md: "4rem" }, lineHeight: 1.12, overflowWrap: "normal" }}
             >
               ARAULLO SOUTH CAMPUS
             </Typography>
             <Typography
               variant="h4"
               fontWeight="bold"
-              sx={{ mb: 2, color: colors.dark }}
+              sx={{ mb: 2, color: colors.dark, fontSize: { xs: "clamp(1.25rem, 5vw, 1.75rem)", md: "2.125rem" }, lineHeight: 1.3 }}
             >
               Lost And Found Tracking System
             </Typography>
-            <Typography variant="body1" sx={{ maxWidth: 600, mx: "auto", mb: 4 }}>
+            <Typography variant="body1" sx={{ maxWidth: 600, mx: "auto", mb: 4, px: 1, fontSize: { xs: "0.95rem", sm: "1rem" } }}>
               Easily report and retrieve lost items with our system
             </Typography>
           </motion.div>
 
           {/* Buttons */}
-          <Stack direction="row" spacing={2} justifyContent="center" flexWrap="wrap">
+          <Stack direction={{ xs: "column", sm: "row" }} gap={1.5} justifyContent="center" alignItems="center" sx={{ width: "100%", maxWidth: 630, mx: "auto", "& .MuiButton-root": { width: { xs: "100%", sm: "auto" }, minWidth: { sm: 160 }, minHeight: 46, mx: "0 !important", mt: "0 !important" } }}> 
             <Button
               variant="contained"
               onClick={handleButtonClick}
@@ -452,7 +453,7 @@ const Home = () => {
       >
         {/* About Content (Left) */}
         <Stack
-          width={{ xs: "100%", md: "50%" }}
+          width={{ xs: "100%", md: "48%" }}
           gap="30px"
           alignSelf="center"
           sx={{
@@ -596,7 +597,7 @@ const Home = () => {
         {/* Image (Right Side) */}
         <Stack
           justifyContent="center"
-          width={{ xs: "100%", md: "50%" }}
+          width={{ xs: "100%", md: "48%" }}
           height={{ xs: "280px", md: "480px" }}
           sx={{
             position: "relative",
@@ -626,11 +627,11 @@ const Home = () => {
         direction={{ xs: "column", md: "row" }}
         justifyContent="space-between"
         alignItems="flex-start"
-        py={12}
-        px={4}
+        py={{ xs: 5, md: 10 }}
+        px={{ xs: 2.5, sm: 4, md: 5 }}
         width="100%"
         maxWidth="1200px"
-        gap={6}
+        gap={{ xs: 3, md: 5 }}
         sx={{
           backgroundColor: "#FFFFFF",
           borderTop: `3px solid ${colors.primary}`,
@@ -639,7 +640,7 @@ const Home = () => {
         }}
       >
         {/* 📍 Left Side - Contact Info */}
-        <Stack spacing={3} width={{ xs: "100%", md: "50%" }}>
+        <Stack spacing={3} width={{ xs: "100%", md: "48%" }}>
           <Typography
             variant="h5"
             fontWeight="bold"
@@ -720,13 +721,14 @@ const Home = () => {
           component="form"
           onSubmit={handleSubmit}
           sx={{
-            mt: 4,
+            mt: { xs: 0, md: 0 },
+            minWidth: 0,
             display: "flex",
             flexDirection: "column",
             gap: 2.5,
-            width: { xs: "100%", md: "80%" },
+            width: { xs: "100%", md: "48%" },
             backgroundColor: "#F9FBFB",
-            p: 4,
+            p: { xs: 2.5, sm: 3, md: 4 },
             borderRadius: "16px",
             boxShadow: "0 4px 14px rgba(0,0,0,0.08)",
           }}
@@ -799,7 +801,7 @@ const Home = () => {
               borderRadius: "10px",
               py: 1.2,
               px: 4,
-              alignSelf: "flex-start",
+              alignSelf: { xs: "stretch", sm: "flex-start" },
               textTransform: "none",
               transition: "0.3s",
               "&:hover": { bgcolor: "#09785A", transform: "translateY(-2px)" },

@@ -5,17 +5,17 @@ import { BsFacebook, BsInstagram, BsTwitter } from 'react-icons/bs'
 
 const Footer = () => {
     return (
-        <Stack width="100%" sx={{ pt: '85px' }}>
+        <Stack width="100%" sx={{ pt: { xs: 5, md: 10 }, minWidth: 0 }}>
             <Stack
                 width="100%"
-                height="180px"
+                minHeight="180px"
                 sx={{
                     backgroundColor: '#FFFFFF',
                     color: '#064C3B',
                     borderTop: '2px solid #CFEAE2',
                     boxShadow: '0px -4px 10px rgba(0, 0, 0, 0.05)',
                 }}
-                py="25px"
+                py={{ xs: 4, md: 3 }}
                 px={{ xs: "20px", md: "60px" }}
                 justifyContent="center"
                 alignItems="center"
@@ -28,6 +28,8 @@ const Footer = () => {
                     textAlign="center"
                     sx={{
                         letterSpacing: "0.5px",
+                        fontSize: { xs: "1.1rem", md: "1.25rem" },
+                        lineHeight: 1.4,
                         color: "#0B996E",
                     }}
                 >
@@ -43,7 +45,7 @@ const Footer = () => {
                         opacity: 0.9,
                         mb: 1,
                         lineHeight: 1.6,
-                        fontSize: "15px",
+                        fontSize: { xs: "0.875rem", md: "15px" },
                     }}
                 >
                     Easily report and retrieve lost items with our smart tracking system — 
@@ -60,7 +62,7 @@ const Footer = () => {
     pt="15px"
 >
     <Typography
-        fontSize="14px"
+        fontSize={{ xs: "12px", md: "14px" }}
         fontWeight="light"
         color="#666"
         align="center"        // optional, extra alignment

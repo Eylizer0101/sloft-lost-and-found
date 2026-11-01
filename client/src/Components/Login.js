@@ -105,18 +105,15 @@ function Login() {
   justifyContent="center"
   alignItems="center"
   width="100%"
-  height="100vh"
+  minHeight="100dvh"
   gap="20px"
   sx={{
     background: "linear-gradient(180deg, #D7FEC8 0%, #ffffffff 100%)",
-    minHeight: "100vh",
-    overflow: "hidden",
-    position: "fixed",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    paddingTop: "75px", // ✅ DAGDAG MO ITO - pwedeng 30px, 50px, 70px depende sa gusto mong ibaba
+    minHeight: "calc(100dvh - 72px)",
+    overflowX: "hidden",
+    position: "relative",
+    py: { xs: 4, sm: 6, md: 8 },
+    px: { xs: 2, sm: 3 },
   }}
 
     >
@@ -152,8 +149,10 @@ function Login() {
           <Paper
             elevation={6}
             sx={{
-              width: { xs: "90%", md: "450px" },
-              padding: "1.5rem",
+              width: "100%",
+              maxWidth: "450px",
+              mx: "auto",
+              padding: { xs: "1.25rem", sm: "1.5rem" },
               borderRadius: "16px",
               background: "white",
               border: "1px solid #CFEAE2",
