@@ -18,6 +18,45 @@ import ImageIcon from "@mui/icons-material/Image";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import Axios from "axios";
 
+// Support both permanent hosted URLs and legacy paths saved in MongoDB.
+const IMAGE_API_URL = (process.env.REACT_APP_API_URL || "http://localhost:4000").replace(/\/+$/, "");
+const resolveListingImage = (value) => {
+  if (typeof value !== "string" || !value.trim()) return "";
+  const url = value.trim().replace(/\\/g, "/");
+  if (/^https?:\/\//i.test(url)) return url;
+  if (/^\/\//.test(url)) return `${window.location.protocol}${url}`;
+  const cleanPath = url.replace(/^\/+/, "");
+  // Historical records may contain server/uploads/ or uploads/ paths.
+  return `${IMAGE_API_URL}/${cleanPath.replace(/^server\//i, "")}`;
+};
+
+function ListingImage({ item }) {
+  const candidate = Array.isArray(item.img) ? item.img.find(Boolean) : item.img;
+  const source = candidate || (item.type === "Found" ? item.foundImg : item.lostImg);
+  const imageUrl = resolveListingImage(source);
+  const [failed, setFailed] = React.useState(false);
+  React.useEffect(() => setFailed(false), [imageUrl]);
+
+  if (imageUrl && !failed) {
+    return (
+      <img
+        src={imageUrl}
+        alt={item.name || "Item"}
+        loading="lazy"
+        style={{ width: "100%", height: "200px", objectFit: "cover", borderRadius: 0, backgroundColor: "#f4f4f4" }}
+        onError={() => setFailed(true)}
+      />
+    );
+  }
+
+  return (
+    <Stack alignItems="center" justifyContent="center" sx={{ width: "190px", height: "190px", borderRadius: "12px", backgroundColor: "#f1f8f6", border: "2px dashed #9ED6BE", color: "#607d8b", textAlign: "center", p: 2 }}>
+      <ImageIcon sx={{ fontSize: 50, color: "#90a4ae" }} />
+      <Typography variant="body2" fontWeight="bold">No Image Available</Typography>
+    </Stack>
+  );
+}
+
 export default function MyListings() {
   const getUserId = () => {
     const user = JSON.parse(window.localStorage.getItem("user"));
@@ -192,12 +231,7 @@ export default function MyListings() {
  
                   <Box
                     sx={{
-                      height:
-                        (item.img && item.img.length > 0) ||
-                        item.foundImg ||
-                        item.lostImg
-                          ? "200px"
-                          : "auto",
+                      height: "200px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -205,53 +239,7 @@ export default function MyListings() {
                       background: "#F2FBF8",
                     }}
                   >
-                    {(item.img && item.img.length > 0) ||
-                    item.foundImg ||
-                    item.lostImg ? (
-                      <img
-                        src={
-                          item.img && item.img.length > 0
-                            ? Array.isArray(item.img)
-                              ? `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.img[0]}`
-                              : `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.img}`
-                            : item.type === "Found"
-                            ? `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.foundImg}`
-                            : `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.lostImg}`
-                        }
-                        alt={item.name}
-                        style={{
-                          width: "100%",
-                          height: "200px",
-                          objectFit: "cover",
-                          borderRadius: 0,
-                          backgroundColor: "#f4f4f4",
-                        }}
-                        onError={(e) => {
-                          e.target.onerror = null;
-                          e.target.src = "";
-                        }}
-                      />
-                    ) : (
-                      <Stack
-                        alignItems="center"
-                        justifyContent="center"
-                        sx={{
-                          width: "190px",
-                          height: "190px",
-                          borderRadius: "12px",
-                          backgroundColor: "#f1f8f6",
-                          border: "2px dashed #9ED6BE",
-                          color: "#607d8b",
-                          textAlign: "center",
-                          p: 2,
-                        }}
-                      >
-                        <ImageIcon sx={{ fontSize: 50, color: "#90a4ae" }} />
-                        <Typography variant="body2" fontWeight="bold">
-                          No Image Available
-                        </Typography>
-                      </Stack>
-                    )}
+                    <ListingImage item={item} />
                   </Box>
 
                   <CardContent sx={{ p: 2.8 }}>
