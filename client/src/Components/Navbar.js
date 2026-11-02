@@ -114,7 +114,7 @@ function Navbar() {
         zIndex={20}
         sx={{
           backgroundColor: "#FFFFFF",
-          boxShadow: "none",
+          boxShadow: "0 1px 9px rgba(7, 71, 45, 0.06)",
           position: "sticky",
           top: 0,
         }}
@@ -315,7 +315,8 @@ function Navbar() {
                   textTransform: 'none',
                   px: '20px',
                   py: '7px',
-                  borderRadius: "0",
+                  borderRadius: "24px",
+                  border: "1px solid #0A7A5A",
                   fontWeight: "600",
                   fontSize: "14px",
                   color: "#0A7A5A",
@@ -335,7 +336,7 @@ function Navbar() {
                   textTransform: 'none',
                   px: '20px',
                   py: '7px',
-                  borderRadius: "0",
+                  borderRadius: "24px",
                   fontWeight: "600",
                   fontSize: "14px",
                   backgroundColor: "#0A7A5A",

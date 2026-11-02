@@ -136,186 +136,66 @@ const Home = () => {
       alignItems="center"
       sx={{ backgroundColor: "#FFFFFF" }}
     >
-      {/* 🌟 HERO SECTION */}
-      <Box
-        sx={{
-          position: "relative",
-          width: "100%",
-          minHeight: { xs: "370px", sm: "420px", md: "540px" },
-          display: "flex", flexDirection: "column", justifyContent: "center",
-          overflow: "hidden",
-          background: "linear-gradient(180deg, #D7FEC8 0%, #ffffffff 100%)",
-        }}
-      >
-        {/* 🎯 Hero Content */}
-        <Stack
-          alignItems="center"
-          justifyContent="center"
-          height="100%"
-          textAlign="center"
-          sx={{ color: colors.text, position: "relative", zIndex: 2, px: { xs: 2, sm: 3 }, py: { xs: 3, sm: 4, md: 5 }, width: "100%", minHeight: "inherit", mx: "auto" }}
-        >
-          <motion.div style={{ width: "100%", maxWidth: "1100px", margin: "0 auto" }} variants={fadeInUp} initial="hidden" whileInView="visible">
-            <Typography
-              variant="h2"
-              fontWeight="bold"
-              sx={{ letterSpacing: { xs: 0, md: 1 }, mb: { xs: 2, md: 1 }, color: colors.primary, fontSize: { xs: "clamp(1.75rem, 7.5vw, 2.65rem)", sm: "3.5rem", md: "4rem" }, lineHeight: 1.12, overflowWrap: "normal" }}
-            >
-              ARAULLO SOUTH CAMPUS
-            </Typography>
-            <Typography
-              variant="h4"
-              fontWeight="bold"
-              sx={{ mb: { xs: 1.5, md: 2 }, color: colors.dark, fontSize: { xs: "clamp(1.1rem, 4.2vw, 1.5rem)", md: "2.125rem" }, lineHeight: 1.3 }}
-            >
-              Lost And Found Tracking System
-            </Typography>
-            <Typography variant="body1" sx={{ maxWidth: 600, mx: "auto", mb: { xs: 2.5, md: 4 }, px: 1, fontSize: { xs: "0.9rem", sm: "1rem" }, lineHeight: 1.5 }}>
-              Easily report and retrieve lost items with our system
-            </Typography>
-          </motion.div>
-
-          {/* Buttons */}
-          <Box sx={{
-            display: "grid",
-            gridTemplateColumns: { xs: "repeat(2, minmax(0, 1fr))", sm: "repeat(3, minmax(0, 1fr))" },
-            gap: { xs: 1.25, sm: 1.5 },
-            width: "100%",
-            maxWidth: { xs: 360, sm: 560 },
-            mx: "auto",
-            px: { xs: 1, sm: 0 },
-            "& .MuiButton-root": {
-              width: "100%",
-              minWidth: 0,
-              minHeight: { xs: 44, sm: 46 },
-              fontSize: { xs: "0.85rem", sm: "0.95rem" },
-              px: { xs: 1, sm: 2 },
-              py: { xs: 1, sm: 1.25 },
-              mx: "0 !important",
-              mt: "0 !important",
-              whiteSpace: "nowrap",
-            },
-          }}> 
-            <Button
-              variant="contained"
-              onClick={handleButtonClick}
-              sx={{
-                bgcolor: colors.primary,
-                color: "#fff",
-                fontWeight: "bold",
-                px: 4,
-                py: 1.5,
-                borderRadius: "30px",
-                textTransform: "none",
-                "&:hover": { bgcolor: colors.dark },
-              }}
-            >
-              Report Item
-            </Button>
-
-            <Button
-              sx={{
-                bgcolor: colors.primary,
-                color: "#fff",
-                px: 4,
-                py: 1.2,
-                borderRadius: "25px",
-                textTransform: "none",
-                fontWeight: "bold",
-                "&:hover": { bgcolor: colors.dark },
-              }}
-              onClick={handleButtonClickLost}
-            >
-              Lost Items
-            </Button>
-
-            <Button
-              variant="outlined"
-              onClick={handleButtonClickFound}
-              sx={{
-                gridColumn: { xs: "1 / -1", sm: "auto" },
-                justifySelf: "center",
-                maxWidth: { xs: "calc((100% - 10px) / 2)", sm: "none" },
-                borderColor: colors.primary,
-                color: colors.primary,
-                fontWeight: "bold",
-                px: 4,
-                py: 1.5,
-                borderRadius: "30px",
-                textTransform: "none",
-                "&:hover": { bgcolor: colors.primary, color: "#fff" },
-              }}
-            >
-              Found Item
-            </Button>
+      {/* 🌟 HERO SECTION — responsive landing redesign */}
+      <Box sx={{ width: "100%", position: "relative", overflow: "hidden", background: "linear-gradient(125deg, #F4FBF5 0%, #FFFFFF 48%, #EDF9EE 100%)", pt: { xs: 5, md: 8 }, pb: { xs: 5, md: 7 } }}>
+        <Box sx={{ position: "absolute", top: -110, left: -130, width: { xs: 270, md: 500 }, height: 220, borderRadius: "50%", bgcolor: "#E1F6DF", opacity: 0.65, pointerEvents: "none" }} />
+        <Box sx={{ position: "absolute", right: -90, bottom: -110, width: 360, height: 280, borderRadius: "50%", bgcolor: "#DDF5DC", opacity: 0.7, pointerEvents: "none" }} />
+        <Box sx={{ width: "100%", maxWidth: "1460px", mx: "auto", px: { xs: 2.5, sm: 4, md: 6, lg: 8 }, position: "relative", zIndex: 1 }}>
+          <Box sx={{ display: "grid", gridTemplateColumns: { xs: "minmax(0, 1fr)", md: "minmax(0, 1.12fr) minmax(0, 1fr)" }, alignItems: "center", columnGap: { md: 3, lg: 5 }, rowGap: { xs: 3, md: 0 }, minHeight: { md: 410 } }}>
+            <Box sx={{ minWidth: 0, textAlign: { xs: "center", md: "left" }, py: { xs: 0, md: 3 } }}>
+              <motion.div variants={fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+                <Typography component="h1" sx={{ color: colors.dark, fontWeight: 800, fontSize: { xs: "clamp(1.7rem, 7vw, 2.7rem)", md: "clamp(2.15rem, 3.45vw, 3.45rem)" }, lineHeight: 1.13, letterSpacing: "-0.02em", whiteSpace: { md: "nowrap" } }}>ARAULLO SOUTH CAMPUS</Typography>
+                <Typography component="h2" sx={{ color: "#064C3B", mt: 1, fontSize: { xs: "clamp(1.25rem, 4.3vw, 1.85rem)", md: "clamp(1.55rem, 2.5vw, 2.3rem)" }, fontWeight: 700, lineHeight: 1.25 }}>Lost And Found Tracking System</Typography>
+                <Typography sx={{ mt: 2.5, mb: 4, color: "#4B5563", fontSize: { xs: "0.95rem", sm: "1.05rem" }, lineHeight: 1.65 }}>Easily report and retrieve lost items with our system.</Typography>
+              </motion.div>
+              <Box sx={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: { xs: "center", md: "flex-start" }, gap: 1.5, "& .MuiButton-root": { textTransform: "none", borderRadius: "28px", px: { xs: 2, sm: 3 }, minHeight: 46, fontWeight: 700, fontSize: { xs: "0.83rem", sm: "0.95rem" }, whiteSpace: "nowrap" } }}>
+                <Button startIcon={<DescriptionIcon />} variant="contained" onClick={handleButtonClick} sx={{ bgcolor: colors.primary, color: "#fff", "&:hover": { bgcolor: colors.dark } }}>Report Item</Button>
+                <Button startIcon={<DescriptionIcon />} variant="outlined" onClick={handleButtonClickLost} sx={{ borderColor: colors.primary, color: colors.dark, bgcolor: "#F6FFF7", "&:hover": { borderColor: colors.dark, bgcolor: "#E9F8EC" } }}>Lost Items</Button>
+                <Button startIcon={<SearchIcon />} variant="outlined" onClick={handleButtonClickFound} sx={{ borderColor: colors.primary, color: colors.dark, bgcolor: "#FFFFFF", "&:hover": { borderColor: colors.dark, bgcolor: "#E9F8EC" } }}>Found Item</Button>
+              </Box>
+            </Box>
+            <Box sx={{ minWidth: 0, width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <Box component="img" src="/images/MintBackground.png" alt="Lost and found belongings: backpack, phone, student ID, keys, wallet, notebook and umbrella" sx={{ display: "block", width: "100%", maxWidth: { xs: 500, md: 670 }, height: "auto", objectFit: "contain" }} />
+            </Box>
           </Box>
-        </Stack>
+          <Box sx={{ mt: { xs: 4, md: 3 }, display: "grid", gridTemplateColumns: { xs: "1fr", sm: "repeat(3, minmax(0, 1fr))" }, gap: 2 }}>
+            {[
+              { title: "Report Easily", desc: "Quickly and simply report lost or found items on campus.", icon: <DescriptionIcon sx={{ fontSize: 31 }} /> },
+              { title: "Track Requests", desc: "Stay updated on the status of your reported items.", icon: <LocationOnIcon sx={{ fontSize: 31 }} /> },
+              { title: "Claim Securely", desc: "Retrieve your items through a safe and verified process.", icon: <SearchIcon sx={{ fontSize: 31 }} /> },
+            ].map((feature) => (
+              <Paper key={feature.title} elevation={0} sx={{ minWidth: 0, p: { xs: 2, md: 2.5 }, display: "flex", alignItems: "center", gap: 2, borderRadius: "20px", bgcolor: "#FFFFFF", border: "1px solid #E6F0E8", boxShadow: "0 7px 22px rgba(16, 78, 49, 0.07)" }}>
+                <Box sx={{ flexShrink: 0, width: 60, height: 60, display: "grid", placeItems: "center", borderRadius: "18px", bgcolor: "#E4F6E6", color: "#07814E" }}>{feature.icon}</Box>
+                <Box sx={{ minWidth: 0 }}>
+                  <Typography sx={{ fontWeight: 800, color: colors.dark, fontSize: { xs: "1rem", md: "1.1rem" } }}>{feature.title}</Typography>
+                  <Typography sx={{ color: "#58645E", mt: 0.4, lineHeight: 1.45, fontSize: "0.87rem" }}>{feature.desc}</Typography>
+                </Box>
+              </Paper>
+            ))}
+          </Box>
+        </Box>
       </Box>
 
-      {/* HOW IT WORKS */}
+      {/* HOW IT WORKS — existing section retained below hero */}
       <Stack
         alignItems="center"
-        mt={{ xs: 0, md: 10 }}
+        mt={{ xs: 0, md: 3 }}
         px={{ xs: 2.5, md: 3 }}
         width="100%"
-        sx={{
-          backgroundColor: "#FFFFFF",
-          py: { xs: 4, sm: 5, md: 8 },
-          textAlign: "center",
-        }}
+        sx={{ backgroundColor: "#FFFFFF", py: { xs: 5, md: 8 }, textAlign: "center" }}
       >
-        <Typography variant="h5" fontWeight="bold" color="#064C3B" mb={1}>
-          How It Works
-        </Typography>
-
-        <Typography color="text.secondary" textAlign="center" mb={{ xs: 3, md: 5 }}>
-          Our system makes it easy to report and find lost items
-        </Typography>
-
+        <Typography variant="h5" fontWeight="bold" color="#064C3B" mb={1}>How It Works</Typography>
+        <Typography color="text.secondary" textAlign="center" mb={{ xs: 3, md: 5 }}>Our system makes it easy to report and find lost items</Typography>
         <Grid container spacing={3} justifyContent="center" maxWidth="1000px">
           {[
-            {
-              title: "Report Lost Items",
-              desc: "Add detailed descriptions and images. Quickly report any items you've lost.",
-              icon: <DescriptionIcon sx={{ fontSize: 40, color: "#0A7A5A" }} />,
-            },
-            {
-              title: "Find Items",
-              desc: "Browse through reported items to see if someone found what you're looking for.",
-              icon: <SearchIcon sx={{ fontSize: 40, color: "#2d4d88ff" }} />,
-            },
-            {
-              title: "Get Notified",
-              desc: "Receive notifications when items matching your description are found.",
-              icon: <NotificationsIcon sx={{ fontSize: 40, color: "#c3a70bff" }} />,
-            },
+            { title: "Report Lost Items", desc: "Add detailed descriptions and images. Quickly report any items you've lost.", icon: <DescriptionIcon sx={{ fontSize: 40, color: "#0A7A5A" }} /> },
+            { title: "Find Items", desc: "Browse through reported items to see if someone found what you're looking for.", icon: <SearchIcon sx={{ fontSize: 40, color: "#2d4d88ff" }} /> },
+            { title: "Get Notified", desc: "Receive notifications when items matching your description are found.", icon: <NotificationsIcon sx={{ fontSize: 40, color: "#c3a70bff" }} /> },
           ].map((item, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
-              <Paper
-                elevation={3}
-                sx={{
-                  p: 4,
-                  borderRadius: "20px",
-                  textAlign: "center",
-                  backgroundColor: "#FFFFFF",
-                  border: "1px solid #E0E0E0",
-                  transition: "0.3s",
-                  "&:hover": {
-                    boxShadow: "0px 8px 20px rgba(0,0,0,0.15)",
-                    transform: "translateY(-5px)",
-                  },
-                }}
-              >
+              <Paper elevation={3} sx={{ p: 4, borderRadius: "20px", textAlign: "center", backgroundColor: "#FFFFFF", border: "1px solid #E0E0E0", transition: "0.3s", "&:hover": { boxShadow: "0px 8px 20px rgba(0,0,0,0.15)", transform: "translateY(-5px)" } }}>
                 {item.icon}
-                <Typography
-                  variant="h6"
-                  fontWeight="bold"
-                  color="#0A7A5A"
-                  mt={1}
-                  mb={1}
-                >
-                  {item.title}
-                </Typography>
+                <Typography variant="h6" fontWeight="bold" color="#0A7A5A" mt={1} mb={1}>{item.title}</Typography>
                 <Typography color="text.secondary">{item.desc}</Typography>
               </Paper>
             </Grid>
