@@ -411,12 +411,9 @@ function Navbar() {
               overflow: "hidden",
             }}
           >
-            <Stack direction="row" alignItems="center" justifyContent="center" spacing={1} sx={{ maxWidth: "100%", pt: 1.5 }}>
-              <Box component="img" src="/S-LOFT.png" alt="" sx={{ width: 29, height: 29, objectFit: "contain", flexShrink: 0 }} />
-              <Typography sx={{ fontSize: "1.3rem", fontWeight: 800, color: "#FFFFFF", textShadow: "0 1px 3px rgba(0,0,0,.28)", whiteSpace: "nowrap" }}>
-                S-LOFT
-              </Typography>
-            </Stack>
+            <Typography sx={{ fontSize: "1.3rem", fontWeight: 800, color: "#FFFFFF", textShadow: "0 1px 3px rgba(0,0,0,.28)", whiteSpace: "nowrap", textAlign: "center" }}>
+              S-LOFT
+            </Typography>
           </Box>
           <IconButton
             aria-label="Close navigation menu"
