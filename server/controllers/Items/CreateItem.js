@@ -1,12 +1,43 @@
+import crypto from "node:crypto";
+import fs from "node:fs/promises";
+
 // backend/controllers/Items/createItem.js
 import Item from "../../models/Item.js";
 import User from "../../models/User.js";
 import Notification from "../../models/Notification.js";
 import  sendEmailNotification  from "../../utils/sendEmailNotification.js";
 
+// Optional durable image storage. Set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY
+// and CLOUDINARY_API_SECRET on Render. Existing disk uploads still work locally.
+const storeImages = async (files = []) => {
+  const { CLOUDINARY_CLOUD_NAME: cloud, CLOUDINARY_API_KEY: key, CLOUDINARY_API_SECRET: secret } = process.env;
+  if (!files.length) return [];
+  if (!cloud || !key || !secret) return files.map((file) => `uploads/${file.filename}`);
+
+  const urls = [];
+  for (const file of files) {
+    const timestamp = Math.floor(Date.now() / 1000);
+    const folder = "sloft_items";
+    const signature = crypto.createHash("sha1").update(`folder=${folder}&timestamp=${timestamp}${secret}`).digest("hex");
+    const form = new FormData();
+    form.append("file", new Blob([await fs.readFile(file.path)], { type: file.mimetype }), file.originalname);
+    form.append("api_key", key);
+    form.append("timestamp", String(timestamp));
+    form.append("folder", folder);
+    form.append("signature", signature);
+    const response = await fetch(`https://api.cloudinary.com/v1_1/${encodeURIComponent(cloud)}/image/upload`, { method: "POST", body: form });
+    const result = await response.json();
+    if (!response.ok || !result.secure_url) throw new Error(result.error?.message || "Image cloud upload failed");
+    urls.push(result.secure_url);
+    await fs.unlink(file.path).catch(() => {});
+  }
+  return urls;
+};
+
 const createItem = async (req, res) => {
   try {
     const itemData = req.body;
+    const savedImages = await storeImages(req.files || []);
 
     // ✅ Create new item (auto-approved na)
     const newItem = new Item({
@@ -14,10 +45,7 @@ const createItem = async (req, res) => {
       status: "Pending", // ✅ Directly approved instead of pending
       category: itemData.category || "Others",
       areaImage: itemData.areaImage || "",
-      img:
-        req.files && req.files.length > 0
-          ? req.files.map((file) => `uploads/${file.filename}`)
-          : [],
+      img: savedImages,
     });
 
     await newItem.save();

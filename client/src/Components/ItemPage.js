@@ -78,9 +78,13 @@ function ItemPage() {
       .get(`${process.env.REACT_APP_API_URL || "http://localhost:4000"}/items/${item_id}`)
       .then((res) => {
         const data = res.data.item;
-        const imgs = data.img.map((img) => ({
-          image: `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${img}`,
-        }));
+        const imgs = (Array.isArray(data.img) ? data.img : data.img ? [data.img] : [])
+          .filter(Boolean)
+          .map((img) => ({
+            image: /^https?:\/\//i.test(img)
+              ? img
+              : `${(process.env.REACT_APP_API_URL || "http://localhost:4000").replace(/\/$/, "")}/${img.replace(/^\/+/, "")}`,
+          }));
         setSlidesData(imgs);
         setItem(data);
         setComments(data.comments || []);

@@ -12,7 +12,18 @@ import {
 import { motion } from "framer-motion";
 import ImageIcon from "@mui/icons-material/Image";
 
+const API_URL = (process.env.REACT_APP_API_URL || "http://localhost:4000").replace(/\/$/, "");
+const resolveItemImage = (value) => {
+  if (!value || typeof value !== "string") return "";
+  if (/^https?:\/\//i.test(value)) return value;
+  return `${API_URL}/${value.replace(/^\/+/, "")}`;
+};
+
 export default function ItemCard({ item }) {
+  const [imageFailed, setImageFailed] = React.useState(false);
+  const firstImage = Array.isArray(item.img) ? item.img[0] : item.img;
+  const imageUrl = resolveItemImage(firstImage);
+  React.useEffect(() => setImageFailed(false), [imageUrl]);
   const getTimeDifference = (dateString) => {
     const createdDate = new Date(dateString);
     const now = new Date();
@@ -80,13 +91,15 @@ export default function ItemCard({ item }) {
     <motion.div
       whileHover={{ scale: [null, 1.03, 1.03] }}
       transition={{ duration: 0.3 }}
-      style={{ cursor: "pointer" }}
+      style={{ cursor: "pointer", width: "100%", height: "100%", minWidth: 0 }}
     >
       <Card
         sx={{
           width: "100%",
-          maxWidth: "340px",
-          height: "460px",
+          maxWidth: "none",
+          minWidth: 0,
+          minHeight: "460px",
+          height: "100%",
           borderRadius: "18px",
           backgroundColor: "#ffffff",
           boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.1)",
@@ -137,7 +150,7 @@ export default function ItemCard({ item }) {
                 border: "2px solid #c8e6c9",
               }}
             />
-            <Stack>
+            <Stack sx={{ minWidth: 0, flex: 1 }}>
               <Typography variant="subtitle2" fontWeight="bold">
                 {studentId}
               </Typography>
@@ -157,6 +170,7 @@ export default function ItemCard({ item }) {
             justifyContent="center"
             sx={{
               height: "210px",
+              flexShrink: 0,
               borderRadius: "14px",
               overflow: "hidden",
               mt: 1.5,
@@ -164,14 +178,11 @@ export default function ItemCard({ item }) {
               backgroundColor: "#f9f9f9",
             }}
           >
-            {item.img && item.img.length > 0 ? (
+            {imageUrl && !imageFailed ? (
               <Box
                 component="img"
-                src={
-                  Array.isArray(item.img)
-                    ? `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.img[0]}`
-                    : `${process.env.REACT_APP_API_URL || "http://localhost:4000"}/${item.img}`
-                }
+                src={imageUrl}
+                onError={() => setImageFailed(true)}
                 alt={item.name || item.itemName || "Item"}
                 sx={{
                   width: "100%",
@@ -209,18 +220,18 @@ export default function ItemCard({ item }) {
                      Item Name: <strong style={{ color: "#2c2f2eff" }}>{item.name || "Unnamed Item"}</strong>
                    </Typography>
 
-   <Typography variant="body2" color="text.secondary">
+   <Typography variant="body2" color="text.secondary" sx={{ overflowWrap: "anywhere" }}>
                                       Description of Item: <strong style={{ color: "#2c2f2eff" }}>{item.description || "No description available"}</strong>
                                     </Typography>
 
   {/* Show Location only if item is Lost */}
   {item.type !== "Found" && (
-    <Typography variant="body2" color="text.secondary">
+    <Typography variant="body2" color="text.secondary" sx={{ overflowWrap: "anywhere" }}>
       Possible Location : <strong style={{ color: "#2c2f2eff" }}>{item.room || "Unknown Room"}</strong>
     </Typography>
   )}
 
-  <Typography variant="body2" color="text.secondary">
+  <Typography variant="body2" color="text.secondary" sx={{ overflowWrap: "anywhere" }}>
     {item.type === "Found" ? "Date Found:" : "Date Lost:"}{" "}
     <strong style={{ color: "#2c2f2eff" }}>
       {item.date || item.createdAt

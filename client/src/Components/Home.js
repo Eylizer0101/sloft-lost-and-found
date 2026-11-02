@@ -9,6 +9,8 @@ import {
   CircularProgress,
   TextField,
   Divider,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { motion } from "framer-motion";
 import background from "../img/bg.jpg";
@@ -45,6 +47,10 @@ const Home = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const theme = useTheme();
+  const tabletOrSmaller = useMediaQuery(theme.breakpoints.down("md"));
+  const mobileView = useMediaQuery(theme.breakpoints.down("sm"));
+  const visibleCount = mobileView ? 1 : tabletOrSmaller ? 2 : 4;
 
   const navigate = useNavigate();
 
@@ -106,6 +112,10 @@ const Home = () => {
   const foundItems = items.filter((i) => i.type === "Found");
   const lostItems = items.filter((i) => i.type === "Lost");
   const allItems = [...foundItems, ...lostItems];
+  const visibleItems = Array.from(
+    { length: Math.min(visibleCount, allItems.length) },
+    (_, index) => allItems[(currentIndex + index) % allItems.length]
+  );
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -212,7 +222,7 @@ const Home = () => {
         sx={{
           background: "linear-gradient(180deg, #E6F4F1 0%, #ffffff 100%)",
           borderRadius: "40px",
-          px: 4,
+          px: { xs: 1.5, sm: 3, md: 4 },
           position: "relative",
           overflow: "hidden",
         }}
@@ -226,87 +236,37 @@ const Home = () => {
 
         {loading ? (
           <CircularProgress />
+        ) : allItems.length === 0 ? (
+          <Typography color="text.secondary" sx={{ py: 4 }}>No recent items available.</Typography>
         ) : (
-          <Box sx={{ position: "relative", width: "100%", overflow: "hidden" }}>
-            <Stack direction="row" alignItems="center" justifyContent="center" spacing={2}>
+          <Box sx={{ position: "relative", width: "100%", maxWidth: 1440, minWidth: 0 }}>
+            <Box sx={{
+              display: "grid",
+              gridTemplateColumns: "minmax(0, 42px) minmax(0, 1fr) minmax(0, 42px)",
+              gap: { xs: 1, sm: 2 },
+              alignItems: "center",
+              width: "100%",
+            }}>
               <Button
-                onClick={() =>
-                  setCurrentIndex((prev) =>
-                    prev === 0 ? allItems.length - 1 : prev - 1
-                  )
-                }
-                sx={{
-                  minWidth: "40px",
-                  bgcolor: colors.primary,
-                  color: "#fff",
-                  borderRadius: "50%",
-                  "&:hover": { bgcolor: colors.dark },
-                }}
-              >
-                {"<"}
-              </Button>
-
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "80%",
-                  overflow: "hidden",
-                }}
-              >
-                <motion.div
-                  key={currentIndex}
-                  initial={{ opacity: 0, x: 100 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5 }}
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    width: "100%",
-                  }}
-                >
-                  {allItems
-                    .slice(currentIndex, currentIndex + 5)
-                    .map((it, index) => (
-                      <motion.div
-                        key={it._id}
-                        onClick={() => handleOpenCommentsFromHome(it)}
-                        animate={{
-                          scale: index === 2 ? 0.97 : 0.95,
-                          opacity: 1,
-                        }}
-                        transition={{ duration: 0.3 }}
-                        style={{
-                          margin: "0 15px",
-                          cursor: "pointer",
-                          filter: index === 2 ? "none" : "brightness(95%)",
-                        }}
-                      >
-                        <ItemCard item={it} />
-                      </motion.div>
-                    ))}
-                </motion.div>
+                aria-label="Previous items"
+                disabled={allItems.length <= visibleCount}
+                onClick={() => setCurrentIndex((prev) => (prev - 1 + allItems.length) % allItems.length)}
+                sx={{ minWidth: 40, width: 40, height: 40, p: 0, bgcolor: colors.primary, color: "#fff", borderRadius: "50%", "&:hover": { bgcolor: colors.dark }, "&.Mui-disabled": { opacity: 0.35 } }}
+              >{"<"}</Button>
+              <Box sx={{ minWidth: 0, width: "100%", display: "grid", gridTemplateColumns: `repeat(${visibleCount}, minmax(0, 1fr))`, gap: { xs: 1, sm: 2, lg: 2.5 }, alignItems: "stretch" }}>
+                {visibleItems.map((it) => (
+                  <Box key={it._id} onClick={() => handleOpenCommentsFromHome(it)} sx={{ minWidth: 0, width: "100%", cursor: "pointer", "& > *": { width: "100%" } }}>
+                    <ItemCard item={it} />
+                  </Box>
+                ))}
               </Box>
-
               <Button
-                onClick={() =>
-                  setCurrentIndex((prev) =>
-                    prev === allItems.length - 1 ? 0 : prev + 1
-                  )
-                }
-                sx={{
-                  minWidth: "40px",
-                  bgcolor: colors.primary,
-                  color: "#fff",
-                  borderRadius: "50%",
-                  "&:hover": { bgcolor: colors.dark },
-                }}
-              >
-                {">"}
-              </Button>
-            </Stack>
+                aria-label="Next items"
+                disabled={allItems.length <= visibleCount}
+                onClick={() => setCurrentIndex((prev) => (prev + 1) % allItems.length)}
+                sx={{ minWidth: 40, width: 40, height: 40, p: 0, bgcolor: colors.primary, color: "#fff", borderRadius: "50%", "&:hover": { bgcolor: colors.dark }, "&.Mui-disabled": { opacity: 0.35 } }}
+              >{">"}</Button>
+            </Box>
           </Box>
         )}
 
