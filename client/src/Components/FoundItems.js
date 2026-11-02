@@ -238,11 +238,16 @@ export default function FoundItems() {
         whileHover={{ scale: [null, 1.03, 1.03] }} 
         transition={{ duration: 0.3 }} 
         key={item._id}
+        style={{ width: "100%", maxWidth: "340px", display: "flex" }}
       >
         <Card
           sx={{
-            width: "340px",
-            height: "495px",
+            width: "100%",
+            minWidth: 0,
+            minHeight: "495px",
+            height: "auto",
+            display: "flex",
+            flexDirection: "column",
             borderRadius: "20px",
             // 🎨 NEW: Gradient background from UserArchive
             background: "linear-gradient(180deg, #ffffff 0%, #FFF8F8 100%)",
@@ -354,7 +359,7 @@ export default function FoundItems() {
             )}
           </Box>
 
-          <CardContent sx={{ p: 2.8 }}>
+          <CardContent sx={{ p: 2.8, flex: 1, display: "flex", flexDirection: "column" }}> 
             <Stack spacing={0.8}>
               <Typography variant="body2" color="text.secondary">
                 Item Name: <strong style={{ color: colors.textDark }}>{item.name || "Unnamed Item"}</strong>
@@ -367,7 +372,7 @@ export default function FoundItems() {
               </Typography>
             </Stack>
 
-            <Stack direction="column" spacing={1} mt={2}>
+            <Stack direction="column" spacing={1} sx={{ mt: "auto", pt: 2 }}> 
               <Typography
                 variant="body2"
                 color={colors.primary}
@@ -382,14 +387,15 @@ export default function FoundItems() {
                 {commentLabel}
               </Typography>
 
-              <Stack direction="row" spacing={1}>
+              <Stack direction="row" spacing={1} sx={{ width: "100%", flexWrap: "wrap", rowGap: 1 }}>
                 <Button
                   component={Link}
                   to={`/${item.name}?cid=${item._id}&type=${item.type}/${isUser}`}
                   variant="contained"
                   sx={{
                     textTransform: "none",
-                    width: "100%",
+                    flex: "1 1 130px",
+                    minWidth: 0,
                     borderRadius: "8px",
                     // ✅ BINALIK: Original green button
                     backgroundColor: colors.primary,
@@ -403,7 +409,8 @@ export default function FoundItems() {
                   onClick={() => handleOpenComments(item)}
                   sx={{
                     textTransform: "none",
-                    width: "100%",
+                    flex: "1 1 130px",
+                    minWidth: 0,
                     borderRadius: "8px",
                     // ✅ BINALIK: Original green outline
                     color: colors.primary,

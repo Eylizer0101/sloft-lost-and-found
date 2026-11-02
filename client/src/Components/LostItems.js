@@ -250,11 +250,16 @@ export default function LostItems() {
           whileHover={{ scale: [null, 1.03, 1.03] }}
           transition={{ duration: 0.3 }}
           key={item._id}
+          style={{ width: "100%", maxWidth: "340px", display: "flex" }}
         >
           <Card
             sx={{
-              width: "340px",
-              height: "500px",
+              width: "100%",
+              minWidth: 0,
+              minHeight: "500px",
+              height: "auto",
+              display: "flex",
+              flexDirection: "column",
               borderRadius: "20px",
               // 🎨 NEW: Gradient background from UserArchive
               background: "linear-gradient(180deg, #ffffff 0%, #FFF8F8 100%)",
@@ -376,7 +381,7 @@ export default function LostItems() {
               )}
             </Box>
 
-            <CardContent sx={{ p: 2.8 }}>
+            <CardContent sx={{ p: 2.8, flex: 1, display: "flex", flexDirection: "column" }}> 
               <Stack spacing={0.8}>
                 <Typography variant="body2" color="text.secondary">
                   Item Name:{" "}
@@ -404,7 +409,7 @@ export default function LostItems() {
                 </Typography>
               </Stack>
 
-              <Stack direction="column" spacing={1} mt={2}>
+              <Stack direction="column" spacing={1} sx={{ mt: "auto", pt: 2 }}> 
                 <Typography
                   variant="body2"
                   color={colors.primary}
@@ -419,14 +424,15 @@ export default function LostItems() {
                   {commentLabel}
                 </Typography>
 
-                <Stack direction="row" spacing={1}>
+                <Stack direction="row" spacing={1} sx={{ width: "100%", flexWrap: "wrap", rowGap: 1 }}>
                   <Button
                     component={Link}
                     to={`/${item.name}?cid=${item._id}&type=${item.type}/${isUser}`}
                     variant="contained"
                     sx={{
                       textTransform: "none",
-                      width: "100%",
+                      flex: "1 1 130px",
+                      minWidth: 0,
                       borderRadius: "8px",
                       backgroundColor: colors.primary,
                       "&:hover": { backgroundColor: colors.primaryDark },
@@ -439,7 +445,8 @@ export default function LostItems() {
                     onClick={() => handleOpenComments(item)}
                     sx={{
                       textTransform: "none",
-                      width: "100%",
+                      flex: "1 1 130px",
+                      minWidth: 0,
                       borderRadius: "8px",
                       color: colors.primary,
                       borderColor: colors.primary,
