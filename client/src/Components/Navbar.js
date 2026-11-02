@@ -11,6 +11,17 @@ import NotificationBell from "./NotificationBell";
 import SecurityIcon from '@mui/icons-material/Security';
 import GavelIcon from '@mui/icons-material/Gavel';
 import WarningIcon from '@mui/icons-material/Warning';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
+import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined';
+import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 
 function Navbar() {
   const token = window.localStorage.getItem("token");
@@ -48,20 +59,21 @@ function Navbar() {
 
   const isActive = (path) => location.pathname === path;
   const mobileNavigate = (path) => { setMobileOpen(false); navigate(path); };
+  // Keep the original routes and click behavior; icons and active states are visual only.
   const mobileLinks = token
     ? [
-        { label: "Lost Item", action: () => mobileNavigate("/lostitems") },
-        { label: "Found Item", action: () => mobileNavigate("/founditems") },
-        { label: "Report Item", action: () => { setMobileOpen(false); setAgreementOpen(true); } },
-        { label: "My Posted Item", action: () => mobileNavigate("/mylistings") },
-        { label: "Profile", action: () => mobileNavigate("/profile") },
+        { label: "Lost Item", icon: <SearchOutlinedIcon />, path: "/lostitems", action: () => mobileNavigate("/lostitems") },
+        { label: "Found Item", icon: <Inventory2OutlinedIcon />, path: "/founditems", action: () => mobileNavigate("/founditems") },
+        { label: "Report Item", icon: <AddCircleOutlineIcon />, path: "/postitem", action: () => { setMobileOpen(false); setAgreementOpen(true); } },
+        { label: "My Posted Item", icon: <ListAltOutlinedIcon />, path: "/mylistings", action: () => mobileNavigate("/mylistings") },
+        { label: "Profile", icon: <PersonOutlineIcon />, path: "/profile", action: () => mobileNavigate("/profile") },
       ]
     : [
-        { label: "Home", action: () => mobileNavigate("/") },
-        { label: "About", action: () => { setMobileOpen(false); scrollToSection("about"); } },
-        { label: "Contact", action: () => { setMobileOpen(false); scrollToSection("contact"); } },
-        { label: "Log in", action: () => mobileNavigate("/log-in") },
-        { label: "Register", action: () => mobileNavigate("/sign-up") },
+        { label: "Home", icon: <HomeOutlinedIcon />, path: "/", action: () => mobileNavigate("/") },
+        { label: "About", icon: <InfoOutlinedIcon />, action: () => { setMobileOpen(false); scrollToSection("about"); } },
+        { label: "Contact", icon: <PhoneOutlinedIcon />, action: () => { setMobileOpen(false); scrollToSection("contact"); } },
+        { label: "Log in", icon: <LoginOutlinedIcon />, path: "/log-in", separator: true, action: () => mobileNavigate("/log-in") },
+        { label: "Register", icon: <PersonAddAltOutlinedIcon />, path: "/sign-up", action: () => mobileNavigate("/sign-up") },
       ];
 
   const requireLoginToast = () => {
@@ -361,26 +373,106 @@ function Navbar() {
           </IconButton>
         </Stack>
       </Stack>
+      {/* Mobile/right-side navigation: desktop navbar is unchanged. */}
       <Drawer
         anchor="right"
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
         ModalProps={{ keepMounted: true }}
-        PaperProps={{ id: "sloft-mobile-navigation", sx: { width: "min(85vw, 320px)", p: 2, backgroundColor: "#FFFFFF" } }}
+        PaperProps={{
+          id: "sloft-mobile-navigation",
+          sx: {
+            width: "min(82vw, 300px)",
+            maxWidth: "100vw",
+            boxSizing: "border-box",
+            bgcolor: "#FFFFFF",
+            borderTopLeftRadius: "18px",
+            borderBottomLeftRadius: "18px",
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+          },
+        }}
       >
-        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ py: 1 }}>
-          <Typography fontWeight={700} sx={{ color: "#0A7A5A", fontSize: 22 }}>S-LOFT</Typography>
-          <IconButton aria-label="Close navigation menu" onClick={() => setMobileOpen(false)}><CloseIcon /></IconButton>
-        </Stack>
-        <Divider sx={{ mb: 2 }} />
-        <Stack component="nav" spacing={0.5} aria-label="Mobile navigation">
-          {mobileLinks.map((item) => (
-            <Button key={item.label} onClick={item.action} fullWidth sx={{ justifyContent: "flex-start", minHeight: 48, px: 2, color: "#0A7A5A", fontWeight: 600, textTransform: "none" }}>
-              {item.label}
-            </Button>
-          ))}
-          {token && <Button onClick={() => { setMobileOpen(false); signout(); }} fullWidth variant="outlined" sx={{ mt: 2, minHeight: 44, color: "#0A7A5A", borderColor: "#0A7A5A" }}>Logout</Button>}
-        </Stack>
+        <Box sx={{ px: 1.5, pt: 2, pb: 1.5, position: "relative" }}>
+          <Box
+            sx={{
+              height: 112,
+              width: "100%",
+              borderRadius: "15px",
+              backgroundImage: 'url("/images/Banner.png")',
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+              backgroundSize: "100% 100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              px: 2,
+              overflow: "hidden",
+            }}
+          >
+            <Stack direction="row" alignItems="center" justifyContent="center" spacing={1} sx={{ maxWidth: "100%", pt: 1.5 }}>
+              <Box component="img" src="/S-LOFT.png" alt="" sx={{ width: 29, height: 29, objectFit: "contain", flexShrink: 0 }} />
+              <Typography sx={{ fontSize: "1.3rem", fontWeight: 800, color: "#FFFFFF", textShadow: "0 1px 3px rgba(0,0,0,.28)", whiteSpace: "nowrap" }}>
+                S-LOFT
+              </Typography>
+            </Stack>
+          </Box>
+          <IconButton
+            aria-label="Close navigation menu"
+            onClick={() => setMobileOpen(false)}
+            sx={{
+              position: "absolute", right: 17, top: 22, width: 32, height: 32,
+              color: "#FFFFFF", bgcolor: "rgba(0,49,32,.48)",
+              "&:hover": { bgcolor: "rgba(0,49,32,.75)" },
+            }}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </Box>
+        <Box component="nav" aria-label="Mobile navigation" sx={{ px: 1.5, py: 2, flex: 1, overflowY: "auto", minHeight: 0 }}>
+          <Stack spacing={0.7}>
+            {mobileLinks.map((item) => (
+              <React.Fragment key={item.label}>
+                {item.separator && <Divider sx={{ my: 1.6, borderColor: "#DCE6E2" }} />}
+                <Button
+                  onClick={item.action}
+                  fullWidth
+                  startIcon={item.icon}
+                  aria-current={item.path && isActive(item.path) ? "page" : undefined}
+                  sx={{
+                    justifyContent: "flex-start",
+                    minHeight: 50,
+                    px: 1.6,
+                    borderRadius: "13px",
+                    color: item.path && isActive(item.path) ? "#07563E" : "#173A31",
+                    bgcolor: item.path && isActive(item.path) ? "#E0F3E9" : "transparent",
+                    fontWeight: item.path && isActive(item.path) ? 700 : 500,
+                    textTransform: "none",
+                    fontSize: "0.98rem",
+                    "& .MuiButton-startIcon": { marginRight: "13px", color: "#0A7A5A" },
+                    "&:hover": { bgcolor: "#EDF8F1" },
+                  }}
+                >
+                  {item.label}
+                </Button>
+              </React.Fragment>
+            ))}
+            {token && (
+              <>
+                <Divider sx={{ my: 1.6, borderColor: "#DCE6E2" }} />
+                <Button
+                  onClick={() => { setMobileOpen(false); signout(); }}
+                  fullWidth startIcon={<LogoutOutlinedIcon />}
+                  sx={{ justifyContent: "flex-start", px: 1.6, minHeight: 50, borderRadius: "13px", color: "#C93F3F", textTransform: "none", fontSize: "0.98rem", "& .MuiButton-startIcon": { mr: "13px" } }}
+                >
+                  Logout
+                </Button>
+              </>
+            )}
+          </Stack>
+        </Box>
+        <Box aria-hidden="true" sx={{ height: 49, flexShrink: 0, bgcolor: "#FFFFFF", backgroundImage: "linear-gradient(160deg, transparent 0 36%, #B8F2CF 36% 40%, #087651 40% 76%, #1AC488 76% 80%, #FFFFFF 80%)", backgroundSize: "100% 100%" }} />
       </Drawer>
 
       {/* 🔹 User Agreement Modal */}
