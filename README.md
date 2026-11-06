@@ -281,7 +281,13 @@ Suggestions and issues can be submitted through the repository's [Issues](https:
 
 ## License
 
-No root `LICENSE` file is currently indicated in the repository. Unless the repository owner adds a license, do not assume permission to copy, modify, or redistribute the source code. Third-party dependencies retain their own respective licenses.
+© 2026 Eylizer De Afria. All Rights Reserved.
+
+This project is provided publicly for educational, portfolio, viewing, and evaluation purposes only. **No permission is granted to copy, modify, redistribute, sublicense, or use the project commercially** without prior written permission from the relevant copyright holder(s).
+
+Public availability on GitHub does not make the project open source. Any license field in a `package.json` file should not be interpreted as a repository-wide permission grant. Third-party libraries, assets, and contributions remain subject to their own licenses and ownership rights.
+
+For permission inquiries, contact the repository owner through GitHub.
 
 ---
 
