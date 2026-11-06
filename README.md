@@ -1,113 +1,292 @@
-# Lost & Found
-Lost&amp;Found is a web application developed using the MERN stack. It is a platform that helps users report and track lost and found items in a particular area. The main goal of the application is to reunite lost items with their rightful owners.
-<br>
-Users can create an account, post a lost or found item report, and search for existing reports in their area. The application provides a centralized location for reporting lost and found items, making it easier for people to track and recover lost items. Additionally, users can also leave comments on reports, providing additional information and increasing the chances of the lost item being recovered.
+<div align="center">
 
+# S-LOFT
+### Lost and Found Tracking System
 
-## Demo
-[Loom Video](https://www.loom.com/share/a8fa5a98a3364a7c970ae5b78e8240c1)
+**A web-based platform for reporting, tracking, and managing lost and found items.**
 
-## Key Features & Benefits
+[![React](https://img.shields.io/badge/Frontend-React-149ECA?logo=react&logoColor=white)](https://react.dev/)
+[![Node.js](https://img.shields.io/badge/Runtime-Node.js-339933?logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Backend-Express-333333?logo=express&logoColor=white)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/Database-MongoDB-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 
-*   **User Authentication:** Secure user registration and login functionality.
-*   **Item Reporting:** Users can easily report lost or found items with detailed descriptions and images.
-*   **Item Search:** Powerful search capabilities allow users to find relevant items based on keywords, categories, and location.
-*   **User Profiles:** Users can manage their listings and track the status of reported items.
-*   **Image Upload:** Functionality to upload images of lost or found items to aid in identification.
-*   **Responsive Design:** The application is designed to be responsive and accessible on various devices.
+[Overview](#overview) · [Features](#key-features) · [Getting Started](#getting-started) · [Usage](#how-to-use) · [Project Structure](#project-structure)
 
-## Prerequisites & Dependencies
+</div>
 
-Before you begin, ensure you have the following installed:
+---
 
-*   **Node.js:** (Version 14 or higher) - [https://nodejs.org/](https://nodejs.org/)
-*   **npm:** (Typically bundled with Node.js)
-*   **MongoDB:** (Community Edition or MongoDB Atlas) - [https://www.mongodb.com/](https://www.mongodb.com/)
+## Overview
 
-## Installation & Setup Instructions
+**S-LOFT (Lost and Found Tracking System)** is a MERN-stack web application that provides a centralized place to report lost items, post found items, browse existing listings, and support the process of returning belongings to their owners.
 
-Follow these steps to get the project up and running on your local machine:
+The platform includes separate user-facing and administrative interfaces. Users can create and manage reports, while administrators can review reports, manage users, monitor claims, and view system analytics.
 
-1.  **Clone the Repository:**
+### Project Objectives
 
-    ```bash
-    git clone https://github.com/KcMelek/Lost-Found-MERN.git
-    cd Lost-Found-MERN
-    ```
+- Make lost and found reporting more organized and accessible.
+- Help users discover reports that may match their lost belongings.
+- Provide a clearer way to manage item listings and related claims.
+- Give administrators tools for monitoring reports and platform activity.
+- Deliver an interface that works across desktop and mobile screen sizes.
 
-2.  **Install Server Dependencies:**
+## Key Features
 
-    ```bash
-    cd server
-    npm install
-    ```
+### User Features
 
-3.  **Configure Server Environment Variables:**
+- **Account access:** Sign up, log in, and manage profile information.
+- **Lost item reporting:** Submit reports describing missing belongings.
+- **Found item reporting:** Post information about discovered belongings.
+- **Item browsing:** Explore separate lost and found item listings.
+- **Item details:** Open individual reports to review available information.
+- **Image attachments:** Include item photos when creating supported reports.
+- **My Listings:** View and manage reports associated with an account.
+- **Account recovery:** Use the forgot-password and reset-password pages.
+- **Responsive interface:** Access the application from different screen sizes.
 
-    *   Create a `.env` file in the `server` directory.
-    *   Add the following environment variables (replace with your actual values):
+### Administrator Features
 
-        ```
-        PORT=5000
-        MONGO_URI=mongodb://localhost:27017/lostfounddb
-        JWT_SECRET=your_jwt_secret_key
-        ```
-        *   `PORT`:  The port the server will run on.
-        *   `MONGO_URI`:  The connection string for your MongoDB database.
-        *   `JWT_SECRET`: A secret key used to sign JSON Web Tokens for authentication. Choose a strong and secure value.
+- **Dashboard:** Access an overview of administrative activity.
+- **Report management:** Review submitted reports and inspect their details.
+- **Add reports:** Create reports through the administrative interface.
+- **User management:** Review and manage user records.
+- **Analytics:** View visual summaries of system data.
+- **Archives:** Access archived records and related details.
+- **Claim management:** Review claim notifications and individual claims.
 
-4.  **Install Client Dependencies:**
+> Feature availability and permissions depend on the current application implementation and the account being used.
 
-    ```bash
-    cd ../client
-    npm install
-    ```
+## Technology Stack
 
-5.  **Configure Client Environment Variables:**
+| Layer | Technologies |
+| --- | --- |
+| Frontend | React, JavaScript, HTML, CSS |
+| UI components | Material UI, React Bootstrap, React Icons |
+| Client-side routing | React Router |
+| HTTP communication | Axios |
+| Backend | Node.js, Express.js |
+| Database | MongoDB, Mongoose |
+| Authentication-related libraries | JSON Web Tokens, bcryptjs |
+| File uploads | Multer |
+| Email-related libraries | Nodemailer, Brevo SDK |
+| Data visualization | Recharts |
+| Additional UI libraries | React Toastify, SweetAlert2, Framer Motion |
 
-    *   Create a `.env` file in the `client` directory.
-    *   Add the following environment variable:
+*The table describes technologies included in the repository's package dependencies; not every library is necessarily used on every page.*
 
-        ```
-        REACT_APP_API_URL=http://localhost:5000
-        ```
-        *   `REACT_APP_API_URL`: The URL of your backend server.  Adjust the port if your server is running on a different port.
+## Project Structure
 
-6.  **Start the Server:**
+```text
+sloft-lost-and-found/
+├── client/                  # React frontend
+│   ├── public/              # Public assets
+│   ├── src/
+│   │   ├── Components/      # Application components and pages
+│   │   ├── Pages/           # Additional application pages
+│   │   └── App.js           # Client-side route configuration
+│   └── package.json
+├── server/                  # Express backend
+│   ├── routes/              # API route definitions
+│   ├── middlewares/         # Backend middleware
+│   ├── uploads/             # Uploaded files, when present
+│   ├── app.js               # Server entry point
+│   └── package.json
+├── .gitignore
+└── README.md
+```
 
-    ```bash
-    cd ../server
-    npm run dev
-    ```
+*This is a simplified representation of the main project directories, not a complete inventory of every file.*
 
-    This will start the server using `nodemon`, which automatically restarts the server when you make changes to the code.
+## Getting Started
 
-7.  **Start the Client:**
+### Prerequisites
 
-    ```bash
-    cd ../client
-    npm start
-    ```
+Install the following before running the project locally:
 
-    This will start the React development server. The application should now be accessible in your browser at `http://localhost:3000`.
+- [Node.js](https://nodejs.org/) and npm (use a currently supported LTS release compatible with the project dependencies).
+- [MongoDB](https://www.mongodb.com/) locally, or a MongoDB Atlas database.
+- [Git](https://git-scm.com/) for cloning the repository.
 
-## Usage Examples & API Documentation
+### 1. Clone the Repository
 
-### API Endpoints:
+```bash
+git clone https://github.com/Eylizer0101/sloft-lost-and-found.git
+cd sloft-lost-and-found
+```
 
-The server provides the following API endpoints:
+### 2. Install Backend Dependencies
 
-*   **User Authentication:**
-    *   `POST /api/users/register`: Registers a new user.
-    *   `POST /api/users/login`: Logs in an existing user.
-    *   `GET /api/users/profile`: Retrieves user profile information (requires authentication).
-*   **Item Management:**
-    *   `POST /api/items`: Creates a new lost or found item report (requires authentication).
-    *   `GET /api/items`: Retrieves a list of all items.
-    *   `GET /api/items/:id`: Retrieves a specific item by its ID.
-    *   `PUT /api/items/:id`: Updates an existing item (requires authentication).
-    *   `DELETE /api/items/:id`: Deletes an item (requires authentication).
+```bash
+cd server
+npm install
+```
 
-## License Information
+### 3. Configure the Backend
 
-This project has no specified license. All rights are reserved.
+Create a `.env` file inside the `server` directory.
+
+```dotenv
+PORT=4000
+DB=mongodb://127.0.0.1:27017/sloft_lost_and_found
+```
+
+- `PORT` sets the backend port; the server defaults to `4000` if not provided.
+- `DB` is the MongoDB connection string read by `server/app.js`.
+- If using MongoDB Atlas, replace `DB` with your own Atlas connection string.
+
+**Important:** Other features, such as authentication, email delivery, or integrations, may require additional configuration specific to the corresponding backend modules. Review those modules and supply their required variables before using those features. Do not commit `.env` files, secrets, or database credentials to GitHub.
+
+### 4. Start the Backend
+
+From the `server` folder, run:
+
+```bash
+npm run dev
+```
+
+Alternatively:
+
+```bash
+npm start
+```
+
+With the default port, the backend is available at `http://localhost:4000` after the database connection succeeds.
+
+### 5. Install Frontend Dependencies
+
+Open another terminal at the repository root:
+
+```bash
+cd client
+npm install
+```
+
+Ensure the frontend's API configuration points to the local backend, rather than a deployed API URL. The exact configuration should be checked in the client source before running locally.
+
+### 6. Start the Frontend
+
+From the `client` folder, run:
+
+```bash
+npm start
+```
+
+The React development server typically opens at:
+
+```text
+http://localhost:3000
+```
+
+Leave both the frontend and backend terminals running during local development.
+
+## How to Use
+
+### For Users
+
+1. Open the application and create an account or log in.
+2. Browse the **Lost Items** or **Found Items** section.
+3. Open a report to see its available details.
+4. Submit a lost or found item report with a description and supporting information.
+5. Visit **My Listings** to manage your submitted reports.
+6. Use the available claim-related workflow when applicable.
+
+### For Administrators
+
+1. Access the administrative interface using an authorized account.
+2. Review the dashboard and submitted reports.
+3. Inspect report details and manage records as permitted.
+4. Open user management, archives, or analytics as needed.
+5. Review claim notifications and claim details.
+
+## Backend Route Groups
+
+The Express server mounts these route groups:
+
+| Route prefix | Purpose |
+| --- | --- |
+| `/users` | User-related operations |
+| `/items` | Lost and found item operations |
+| `/admin` | Administrative operations |
+| `/notifications` | Notification operations |
+| `/claims` | Claim-related operations |
+| `/contact` | Contact-related operations |
+| `/uploads` | Static access to uploaded files |
+
+> These are **route prefixes**, not an exhaustive API endpoint reference. Consult the corresponding files under `server/routes/` for supported HTTP methods, full paths, request bodies, and authorization requirements.
+
+## Available Commands
+
+### Frontend (`client/`)
+
+| Command | Description |
+| --- | --- |
+| `npm start` | Start the React development server |
+| `npm run build` | Create a production frontend build |
+| `npm test` | Run the configured React test runner |
+
+### Backend (`server/`)
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Run the Express server using Nodemon |
+| `npm start` | Run the Express server using Node.js |
+
+## Security and Data Handling
+
+The repository includes libraries commonly used for password hashing and token-based authentication. Deployment security still depends on the actual route and middleware configuration.
+
+When deploying or contributing:
+
+- Keep database URLs, email credentials, and application secrets out of version control.
+- Use HTTPS in production.
+- Validate incoming data and uploaded files on the server.
+- Restrict administrative endpoints to authorized users.
+- Review CORS settings for the intended frontend origins.
+- Apply appropriate retention and access controls to item images and user information.
+
+## Troubleshooting
+
+| Issue | Suggested check |
+| --- | --- |
+| Backend does not start | Check Node.js dependencies, `server/.env`, and the MongoDB connection. |
+| Frontend cannot load backend data | Confirm that the backend is running and the frontend API URL is correct. |
+| Browser reports a CORS error | Review the backend's `configureCors` middleware and allowed origins. |
+| Images fail to upload or display | Check upload validation, the `/uploads` static path, and filesystem persistence in the hosting environment. |
+| Login fails | Review authentication configuration, backend logs, and database connectivity. |
+| A port is already in use | Stop the conflicting process or configure a free port and update the frontend accordingly. |
+
+## Future Improvements
+
+Potential enhancements include:
+
+- Improved matching between lost and found reports.
+- More detailed claim status tracking and notifications.
+- Expanded automated tests for user and administrative workflows.
+- Improved image storage for cloud deployments.
+- Additional accessibility and usability improvements.
+
+*These are possible enhancements and should not be interpreted as already implemented features.*
+
+## Contributing
+
+Suggestions and issues can be submitted through the repository's [Issues](https://github.com/Eylizer0101/sloft-lost-and-found/issues) page. If you wish to propose changes, open an issue first to discuss the change before submitting a pull request.
+
+## Developer
+
+**Eylizer De Afria**
+
+- [GitHub](https://github.com/Eylizer0101)
+- [LinkedIn](https://www.linkedin.com/in/eylizer-de-afria-040724430/)
+- [Portfolio](https://eylizer-portfolio.onrender.com/)
+
+## License
+
+No root `LICENSE` file is currently indicated in the repository. Unless the repository owner adds a license, do not assume permission to copy, modify, or redistribute the source code. Third-party dependencies retain their own respective licenses.
+
+---
+
+<div align="center">
+
+**S-LOFT — Making lost and found reporting easier to organize and manage.**
+
+</div>
